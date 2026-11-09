@@ -5,7 +5,7 @@ kèm cửa sổ xem trước có phân trang.
 
 ## Tải bản cài đặt (người dùng cuối)
 
-[**Trang phát hành → Releases**](https://github.com/tsudev-tsudev/tsudev-contact/releases/latest)
+[**Trang phát hành → Releases**](https://github.com/tsudev-org/tsudev-contact/releases/latest)
 → tải `tsudev-contact_{version}_x64-setup.exe` trong mục *Assets*, bấm đúp để chạy.
 File chạy độc lập, **không cần cài Python**. Lần đầu SmartScreen có thể cảnh báo (chưa có chứng
 thư của CA - xem mục *Ký số bản .exe*): *More info → Run anyway*. Muốn chắc file không bị sửa,
