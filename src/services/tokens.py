@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Đọc `tokens/design-tokens.json` - nguồn chân lý duy nhất cho màu/cỡ chữ/spacing.
+"""Đọc `.standards/tokens/design-tokens.json` - nguồn chân lý duy nhất cho màu/cỡ chữ/spacing.
 
 CẤM hard-code màu, cỡ chữ, bo góc, spacing ở bất kỳ đâu trong `src/`
 (AGENTS.md mục 6). Mọi giá trị giao diện phải lấy qua đối tượng `Tokens` này.
@@ -9,7 +9,8 @@ from functools import lru_cache
 
 from src.utils.resource_path import resourcePath
 
-TOKENS_FILE = 'tokens/design-tokens.json'
+# Token dùng thẳng bản sao chỉ-đọc của bộ quy ước (QU-STD-1) - không giữ bản sao riêng.
+TOKENS_FILE = '.standards/tokens/design-tokens.json'
 DEFAULT_THEME = 'light'
 
 
@@ -34,7 +35,7 @@ class Tokens:
     # --- Kích thước ---
     def size(self, name: str) -> int:
         """Cỡ chữ theo px. Ví dụ: size('body-desktop') → 14."""
-        return _toPx(self._data['typography']['size'][name])
+        return _toPx(self._data['typography']['font-size'][name])
 
     def space(self, step) -> int:
         """Spacing theo bậc 4px. Ví dụ: space(4) → 16."""
@@ -76,7 +77,7 @@ class Tokens:
     def font(self, sizeName: str = 'body-desktop', weightName: str = 'regular',
              mono: bool = False, slant: str = None, underline: bool = False) -> tuple:
         """Trả về tuple font tkinter. Cỡ chữ dùng số ÂM = đơn vị pixel (đúng token px)."""
-        family = self._pickFamily('font-family-mono' if mono else 'font-family')
+        family = self._pickFamily('font-mono' if mono else 'font-family')
         spec = [family, -self.size(sizeName)]
         styles = []
         if self.weight(weightName) == 'bold':

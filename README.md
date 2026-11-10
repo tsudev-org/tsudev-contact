@@ -1,7 +1,14 @@
+<img src="assets/brand/logo-mark.png" alt="tsudev" height="56">
+
 # tsudev-contact
 
-Công cụ desktop chuyển danh bạ **CSV → vCard (.vcf)** để nạp vào điện thoại,
-kèm cửa sổ xem trước có phân trang.
+Công cụ desktop chuyển danh bạ **CSV → vCard (.vcf)** để nạp vào điện thoại, chạy ngoại tuyến hoàn toàn trên máy của bạn.
+
+Một sản phẩm của [tsudev](https://tsudev.com).
+
+- Trang sản phẩm: <https://contact.tsudev.com>
+- **Hạng sản phẩm: C** - công cụ cục bộ, không có tài khoản, không gửi dữ liệu đi đâu
+  (`.standards/docs/AUTH_AND_ACCOUNT.md` mục 1).
 
 ## Tải bản cài đặt (người dùng cuối)
 
@@ -51,7 +58,7 @@ powershell -ExecutionPolicy Bypass -File scripts\build-win.ps1
 ```
 
 Script tự cài phụ thuộc, chạy test, gọi PyInstaller và đặt sản phẩm vào `release/` với tên
-theo `docs/DESIGN_SYSTEM.md` mục 6 (ví dụ `tsudev-contact_26.8.2002_x64-setup.exe`).
+theo `.standards/docs/VERSIONING.md` mục 2 (ví dụ `tsudev-contact_26.8.2002_x64-setup.exe`).
 Tên file lấy từ `RELEASE_BASENAME` trong `src/app_info.py` - mỗi bản mới tăng 2 số cuối.
 
 ## Phát hành một bản mới
@@ -99,8 +106,7 @@ File danh bạ thật (`*.csv`, `*.vcf`, `*.db`) chứa **thông tin cá nhân**
 |---|---|
 | `AGENTS.md` | Quy ước bắt buộc - đọc đầu MỌI phiên làm việc |
 | `docs/ARCHITECTURE.md` | Kiến trúc, luồng dữ liệu, nợ kỹ thuật của repo này |
-| `docs/DESIGN_SYSTEM.md` | Hệ màu, typography, quy ước tên bản phát hành |
-| `docs/PROJECT_STRUCTURE.md` | Cây thư mục chuẩn + quy tắc đặt tên |
-| `tokens/` | Nguồn chân lý duy nhất cho màu/cỡ chữ/spacing |
+| `.standards/` | Bộ quy ước chung (chỉ đọc), gồm cả token giao diện `.standards/tokens/` |
+| `assets/` | Dấu hiệu tsudev và bộ icon sinh bằng `tools/gen_icons.py` |
 | `logs/` | `STATE.md` hàng đợi task · `LOCKS.md` khóa file · `handover/` phiếu bàn giao |
 | `CHANGELOG.md` | Mỗi bản phát hành 1 dòng |

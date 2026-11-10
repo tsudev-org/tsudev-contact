@@ -257,7 +257,7 @@ class ContactsApp:
         authorFrame = ttk.Frame(bottomFrame)
         authorFrame.pack(side=tk.RIGHT)
         ttk.Label(authorFrame, text=APP_AUTHOR, style='Watermark.TLabel').pack(anchor='e')
-        supportLabel = ttk.Label(authorFrame, text="Hỗ trợ qua Facebook",
+        supportLabel = ttk.Label(authorFrame, text="contact.tsudev.com",
                                  style='Link.TLabel', cursor="hand2")
         supportLabel.pack(anchor='e')
         supportLabel.bind("<Button-1>", lambda e: webbrowser.open_new(SUPPORT_URL))

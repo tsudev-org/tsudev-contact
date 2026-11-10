@@ -8,7 +8,7 @@ from src.features.splash.system_check import SystemCheckWindow
 from src.utils.dpi import enableHiDpiAwareness
 from src.utils.resource_path import resourcePath
 
-ICON_FILE = 'icon.png'
+ICON_FILE = 'assets/icons/app-256.png'
 APP_WIDTH, APP_HEIGHT = 750, 700
 SLIDE_STEP_PX = 25
 FADE_STEP = 0.06
