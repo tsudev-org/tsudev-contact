@@ -1,0 +1,17 @@
+# Lint Python - chạy trong CI (ruff check .). Tên hàm/biến camelCase là quy ước của repo nên tắt N802/N803/N806.
+line-length = 120
+target-version = "py311"
+extend-exclude = [".standards", "build", "dist", "release"]
+
+[lint]
+select = ["E", "F", "W", "B", "S", "UP", "I", "SIM"]
+ignore = ["E731", "S101", "SIM105", "UP009", "UP036"]
+
+[lint.per-file-ignores]
+"tests/**" = ["S", "B018"]
+"tests/fixtures/**" = ["S", "E501"]
+# Dữ liệu thuần (chuỗi dịch, path SVG, stylesheet): xuống dòng giữa chừng chỉ làm khó đọc hơn.
+"src/i18n/**" = ["E501"]
+"src/ui/icons.py" = ["E501"]
+"src/ui/theme.py" = ["E501"]
+"Contacts.spec" = ["F821"]
