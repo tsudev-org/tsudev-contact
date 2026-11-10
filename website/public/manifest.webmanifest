@@ -1,0 +1,16 @@
+{
+  "name": "tsudev-contact | tsudev",
+  "short_name": "tsudev-contact",
+  "description": "Chuyển danh bạ CSV sang vCard để nạp vào điện thoại: ngoại tuyến, kiểm tra từng dòng, giao diện tiếng Việt.",
+  "lang": "vi",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#EEF4FB",
+  "background_color": "#EEF4FB",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/android-chrome-maskable-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/android-chrome-maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,6 @@
+---
+import TaiLieu from '../../components/TaiLieu.astro';
+import { renderMd } from '../../lib/noi-dung';
+const { html } = renderMd('docs/ARCHITECTURE.md');
+---
+<TaiLieu tieuDe="Kiến trúc bảo mật" moTa="Kiến trúc của tsudev-contact: ngăn xếp công nghệ, luồng dữ liệu, mô hình mối đe dọa và biện pháp chống chèn vCard, chèn công thức, lộ dữ liệu cá nhân." duongDan="/bao-mat/kien-truc/" html={html} nguon="docs/ARCHITECTURE.md" />

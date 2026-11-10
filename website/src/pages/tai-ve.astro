@@ -1,0 +1,79 @@
+---
+import Trang from '../layouts/Trang.astro';
+import { banMoiNhat, RELEASES_URL, REPO, REPO_URL } from '../lib/noi-dung';
+
+const ban = await banMoiNhat();
+const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
+const goi = ban?.goi ?? [];
+const vd = goi[0]?.ten ?? 'tsudev-contact_<phiên bản>_x64-setup.exe';
+---
+<Trang tieuDe="Tải về" moTa="Tải tsudev-contact cho Windows 10/11: một tệp .exe chạy ngay không cần cài, kèm mã SHA-256, SBOM và cách kiểm chứng nguồn gốc bản build." duongDan="/tai-ve/">
+  <div class="khung tai-lieu">
+    <nav class="tai-lieu__menu" aria-label="Tải về">
+      <p>Tải về</p>
+      <ul>
+        <li><a href="#tai">Tải ứng dụng</a></li>
+        <li><a href="#kiem-tra">Kiểm tra tệp</a></li>
+        <li><a href="#chay">Chạy lần đầu</a></li>
+        <li><a href="#cap-nhat">Cập nhật, gỡ bỏ</a></li>
+      </ul>
+    </nav>
+    <article class="van-ban">
+      {ban ? (
+        <>
+          <h1>Tải tsudev-contact {ban.phienBan}</h1>
+          <p>Phát hành ngày {ban.ngay}. Tệp được GitHub Actions build từ mã nguồn công khai; trang này chỉ dẫn tới <a href={ban.url} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>, không lưu bản sao.</p>
+        </>
+      ) : (
+        <>
+          <h1>Tải tsudev-contact</h1>
+          <div class="chu-y">
+            <p><strong>Phiên bản mới đang được chuẩn bị.</strong> Khi có, tệp tải kèm mã SHA-256 sẽ hiện ngay tại đây và ở <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>.</p>
+          </div>
+        </>
+      )}
+
+      <h2 id="tai">Tải ứng dụng</h2>
+      {goi.length > 0 ? (
+        <div class="goi">
+          <section class="goi__nhom" aria-labelledby="goi-win">
+            <h3 id="goi-win">Windows 10/11 (x64)</h3>
+            {goi.map((g) => (
+              <div class="goi__muc">
+                <div>
+                  <p class="goi__loai">{g.loai}</p>
+                  <p class="goi__ten">{g.ten} · {mb(g.kichThuoc)}</p>
+                </div>
+                <a class="nut nut--chinh" href={g.url}>Tải về<span class="an-di"> {g.ten}</span></a>
+                {g.sha256 && <p class="goi__bam">SHA-256: {g.sha256}</p>}
+              </div>
+            ))}
+          </section>
+        </div>
+      ) : (
+        <p>Bản dành cho <strong>Windows 10/11 64-bit</strong>: một tệp <code>tsudev-contact_&lt;phiên bản&gt;_x64-setup.exe</code> chạy ngay, không cần cài Python hay thư viện nào.</p>
+      )}
+      <p>Mỗi bản phát hành còn kèm <code>SHA256SUMS.txt</code> (mã băm) và <code>.cdx.json</code> (SBOM: danh sách mọi thành phần đóng gói, chuẩn CycloneDX).</p>
+
+      <h2 id="kiem-tra">Kiểm tra tệp trước khi chạy</h2>
+      <p>So mã SHA-256 của tệp vừa tải với mã ở trên hoặc trong <code>SHA256SUMS.txt</code>. PowerShell:</p>
+      <pre tabindex="0"><code>Get-FileHash .\{vd} -Algorithm SHA256</code></pre>
+      <p>Kiểm chứng tệp đúng là do GitHub Actions build từ repo <code>{REPO}</code> (chứng thực nguồn gốc SLSA, cần <a href="https://cli.github.com" target="_blank" rel="noopener noreferrer">GitHub CLI</a>):</p>
+      <pre tabindex="0"><code>gh attestation verify .\{vd} --repo {REPO}</code></pre>
+      <div class="chu-y">
+        <p><strong>Chỉ tải từ trang này hoặc từ <a href={`${REPO_URL}/releases`} target="_blank" rel="noopener noreferrer">github.com/{REPO}</a>.</strong> Mọi nơi khác tự xưng "bản chính thức" đều không liên quan tới tsudev.</p>
+      </div>
+
+      <h2 id="chay">Chạy lần đầu</h2>
+      <ol>
+        <li>Bấm đúp tệp <code>.exe</code>. Lần mở đầu mất vài giây để giải nén vào thư mục tạm.</li>
+        <li>Ứng dụng chưa có chứng thư ký số thương mại nên Windows SmartScreen có thể cảnh báo: chọn <em>Thông tin thêm</em>, rồi <em>Vẫn chạy</em> sau khi đã kiểm tra tệp như trên.</li>
+        <li>Đặt tệp vào một thư mục cố định (ví dụ <code>Tài liệu\Ứng dụng</code>) và ghim lên thanh tác vụ nếu dùng thường xuyên.</li>
+      </ol>
+
+      <h2 id="cap-nhat">Cập nhật, gỡ bỏ</h2>
+      <p>Ứng dụng không tự kết nối mạng nên không tự cập nhật. Muốn bản mới, tải lại từ trang này rồi thay tệp cũ. Theo dõi repo trên GitHub (<em>Watch</em>, chọn <em>Releases</em>) để được báo khi có bản mới.</p>
+      <p>Gỡ bỏ: xóa tệp <code>.exe</code> và thư mục <code>%LOCALAPPDATA%\tsudev-contact</code> (chỉ chứa lựa chọn giao diện). Ứng dụng không ghi gì vào Registry.</p>
+    </article>
+  </div>
+</Trang>

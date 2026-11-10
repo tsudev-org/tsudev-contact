@@ -1,0 +1,6 @@
+# Báo cáo lỗ hổng bảo mật của tsudev-contact (RFC 9116)
+Contact: https://github.com/tsudev-org/tsudev-contact/security/advisories/new
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: vi, en
+Canonical: https://contact.tsudev.com/.well-known/security.txt
+Policy: https://contact.tsudev.com/bao-mat/

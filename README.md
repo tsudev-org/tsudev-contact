@@ -121,6 +121,7 @@ File danh bạ thật (`*.csv`, `*.vcf`, `*.db`) chứa **thông tin cá nhân**
 | `AGENTS.md` | Quy ước bắt buộc - đọc đầu MỌI phiên làm việc |
 | `docs/ARCHITECTURE.md` | Kiến trúc, luồng dữ liệu, nợ kỹ thuật của repo này |
 | `.standards/` | Bộ quy ước chung (chỉ đọc), gồm cả token giao diện `.standards/tokens/` |
+| `website/` | Trang sản phẩm `contact.tsudev.com` (Astro tĩnh, Cloudflare) - xem `website/README.md` |
 | `assets/` | Dấu hiệu tsudev và bộ icon sinh bằng `tools/gen_icons.py` |
 | `logs/` | `STATE.md` hàng đợi task · `LOCKS.md` khóa file · `handover/` phiếu bàn giao |
 | `CHANGELOG.md` | Mỗi bản phát hành 1 dòng |

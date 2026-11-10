@@ -1,0 +1,23 @@
+{
+  "name": "tsudev-contact-website",
+  "private": true,
+  "type": "module",
+  "description": "Trang sản phẩm contact.tsudev.com (Astro, trang tĩnh; JavaScript phía trình duyệt chỉ có public/theme.js)",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-dist.mjs",
+    "preview": "astro preview",
+    "deploy": "npm run build && wrangler deploy",
+    "check:a11y": "node scripts/check-a11y.mjs",
+    "check:theme": "node scripts/check-theme.mjs"
+  },
+  "dependencies": {
+    "astro": "7.4.7",
+    "marked": "18.1.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "playwright": "1.64.1",
+    "wrangler": "4.158.0"
+  }
+}

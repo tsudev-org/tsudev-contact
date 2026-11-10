@@ -1,0 +1,42 @@
+---
+import TaiLieu from '../../components/TaiLieu.astro';
+---
+<TaiLieu tieuDe="Chuẩn bị tệp CSV" moTa="Cách chuẩn bị tệp CSV danh bạ cho tsudev-contact: lưu từ Excel đúng bảng mã, tên cột nên dùng, định dạng số điện thoại và ngày sinh được hỗ trợ." duongDan="/huong-dan/csv/">
+  <h1>Chuẩn bị tệp CSV</h1>
+  <p>Tệp CSV là bảng dữ liệu dạng chữ: dòng đầu là tên cột, mỗi dòng sau là một liên hệ. Excel, Google Trang tính, LibreOffice và Google Contacts đều xuất được.</p>
+
+  <h2 id="tu-excel">Lưu từ Excel</h2>
+  <ol>
+    <li>Dòng 1 là tên cột, ví dụ <code>Họ và tên</code>, <code>Số điện thoại</code>, <code>Chức vụ</code>.</li>
+    <li>Định dạng cột số điện thoại là <em>Văn bản</em> (Text) trước khi gõ, để Excel không xóa số 0 đầu. Quên cũng không sao: ứng dụng tự thêm lại.</li>
+    <li><em>Tệp, Lưu dưới dạng</em>, chọn kiểu <strong>CSV UTF-8 (phân cách bằng dấu phẩy)</strong>.</li>
+  </ol>
+
+  <h2 id="ten-cot">Tên cột được tự nhận</h2>
+  <div class="bang" tabindex="0" role="region" aria-label="Bảng tên cột, cuộn ngang được">
+    <table>
+      <thead><tr><th scope="col">Trường</th><th scope="col">Tên cột ví dụ (không phân biệt hoa thường, có dấu hay không)</th></tr></thead>
+      <tbody>
+        <tr><td>Họ tên (bắt buộc)</td><td>Họ và tên, Họ tên, Tên, Name, Full Name</td></tr>
+        <tr><td>Số điện thoại (bắt buộc)</td><td>Số điện thoại, SĐT, Điện thoại, Di động, Phone, Mobile, Phone 1 - Value</td></tr>
+        <tr><td>Email</td><td>Email, Thư điện tử, E-mail 1 - Value</td></tr>
+        <tr><td>Cơ quan</td><td>Cơ quan, Đơn vị, Tổ chức, Công ty, Organization</td></tr>
+        <tr><td>Chức vụ</td><td>Chức vụ, Chức danh, Title, Job Title</td></tr>
+        <tr><td>Địa chỉ</td><td>Địa chỉ, Address</td></tr>
+        <tr><td>Ngày sinh</td><td>Ngày sinh, Birthday, DOB</td></tr>
+        <tr><td>Ghi chú</td><td>Ghi chú, Mô tả, Notes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tên cột khác vẫn dùng được: chọn tay ở bước Ghép cột.</p>
+
+  <h2 id="dinh-dang">Định dạng được hỗ trợ</h2>
+  <ul>
+    <li><strong>Số điện thoại</strong>: <code>0912345678</code>, <code>0912 345 678</code>, <code>0912.345.678</code>, <code>(024) 3825 1234</code>, <code>+84 912 345 678</code>, <code>84912345678</code>, <code>0084912345678</code>. Nhiều số trong một ô cách nhau bằng <code>/</code>, <code>;</code> hoặc <code>,</code>.</li>
+    <li><strong>Ngày sinh</strong>: <code>01/02/1990</code>, <code>1-2-1990</code>, <code>1990-02-01</code>, hoặc số ngày kiểu Excel (ví dụ <code>32874</code>).</li>
+    <li><strong>Email</strong>: nhiều địa chỉ cách nhau bằng <code>;</code> hoặc <code>,</code>.</li>
+  </ul>
+
+  <h2 id="gioi-han">Giới hạn</h2>
+  <p>Tệp tối đa 50 MB, 100.000 dòng, 200 cột. Tệp lớn hơn hãy chia nhỏ. Giới hạn này giúp ứng dụng không bị treo bởi tệp hỏng hay tệp cố ý gây hại.</p>
+</TaiLieu>

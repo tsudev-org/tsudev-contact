@@ -1,0 +1,89 @@
+---
+import Trang from '../layouts/Trang.astro';
+import { banMoiNhat, REPO_URL } from '../lib/noi-dung';
+
+const ban = await banMoiNhat();
+const buoc = [
+  { t: 'Kéo tệp CSV vào', d: 'Tệp xuất từ Excel, Google Contacts hay Outlook. Bảng mã và dấu phân cách được tự nhận, kể cả tệp Excel tiếng Việt cũ.' },
+  { t: 'Kiểm tra ghép cột', d: 'Cột Họ tên, Số điện thoại, Email, Cơ quan, Chức vụ... được tự ghép, kèm giá trị mẫu để bạn nhìn là nhận ra.' },
+  { t: 'Xem trước rồi xuất vCard', d: 'Mỗi dòng được kiểm tra tự động. Lọc dòng lỗi, sửa trong tệp gốc, rồi xuất một tệp .vcf nạp được vào mọi điện thoại.' },
+];
+const tinhNang = [
+  { t: 'Chuẩn hóa số Việt Nam', d: 'Nhận +84, 0084, số có dấu chấm, gạch nối, ngoặc; tự thêm số 0 đầu bị Excel làm mất; tách nhiều số trong một ô.' },
+  { t: 'Kiểm tra từng dòng', d: 'Thiếu tên, số sai, email sai, ngày sinh không có thật, trùng số với dòng khác: báo rõ dòng nào, lỗi gì.' },
+  { t: 'Báo cáo lỗi để sửa', d: 'Xuất các dòng có vấn đề ra tệp CSV mở bằng Excel, sửa xong nạp lại. Tệp báo cáo được chống chèn công thức.' },
+  { t: 'vCard chuẩn RFC', d: 'Chạy với Android, iPhone, Google Contacts, Outlook. Họ tên tiếng Việt hiển thị nguyên vẹn, không bị đảo thứ tự.' },
+  { t: 'Bảng xem trước nhanh', d: 'Lọc Hợp lệ, Cảnh báo, Lỗi; tìm không dấu; phân trang 10 tới 200 dòng. Chạy mượt với 100.000 liên hệ.' },
+  { t: 'Sáng, Ấm, Tối', d: 'Theo hệ thống hoặc chọn tay; giao diện tiếng Việt mặc định, có tiếng Anh. Thiết kế đồng bộ hệ sinh thái tsudev.' },
+];
+const baoMat = [
+  { t: 'Danh bạ không rời khỏi máy', d: 'Ứng dụng không có mã kết nối mạng, không tài khoản, không thu thập gì. Dữ liệu chỉ nằm trong bộ nhớ khi đang mở.' },
+  { t: 'Không thể chèn liên hệ giả', d: 'Mọi trường được thoát ký tự theo RFC 6350; ký tự vô hình và ký tự đảo chiều chữ dùng để giả mạo tên bị loại bỏ.' },
+  { t: 'Chống tệp độc hại', d: 'Giới hạn kích thước, số dòng, số cột, độ dài từng ô; tệp nhị phân hay .xlsx đổi đuôi bị từ chối với thông báo rõ ràng.' },
+  { t: 'Bản build kiểm chứng được', d: 'Build trên GitHub Actions từ mã nguồn công khai, kèm SHA-256, SBOM và chứng thực nguồn gốc. Phụ thuộc khóa bằng mã băm.' },
+];
+---
+<Trang moTa="tsudev-contact: chuyển danh bạ CSV sang vCard để nạp vào điện thoại, kiểm tra từng dòng, chuẩn hóa số Việt Nam, chạy ngoại tuyến, giao diện tiếng Việt." duongDan="/">
+  <section class="mo-dau">
+    <div class="khung mo-dau__luoi">
+      <div>
+        <span class="nhan">{ban ? `Phiên bản ${ban.phienBan} · ${ban.ngay}` : 'Bản mới đang được chuẩn bị'}</span>
+        <h1>Danh bạ từ Excel vào điện thoại, đúng và đủ</h1>
+        <p class="mo-dau__phu">tsudev-contact chuyển tệp CSV thành vCard (.vcf), kiểm tra từng số điện thoại trước khi xuất và chỉ cho bạn dòng nào cần sửa. Chạy hoàn toàn trên máy của bạn, không cần mạng, không cần tài khoản.</p>
+        <div class="mo-dau__nut">
+          <a class="nut nut--chinh" href="/tai-ve/">Tải tsudev-contact</a>
+          <a class="nut nut--phu" href="/huong-dan/">Xem hướng dẫn</a>
+        </div>
+        <p class="mo-dau__ghi-chu">Windows 10/11 x64 · một tệp .exe, không cần cài · miễn phí</p>
+      </div>
+      <figure class="minh-hoa">
+        <img src="/anh/ung-dung-sang.png" alt="Cửa sổ tsudev-contact: bên trái chọn tệp CSV và ghép cột, bên phải bảng xem trước danh bạ có cột trạng thái Hợp lệ, Cảnh báo, Lỗi" width="1280" height="820">
+        <figcaption>Ba bước trên một màn hình, dữ liệu mẫu</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="cach-dung">
+    <div class="khung">
+      <h2 id="cach-dung">Ba bước là xong</h2>
+      <ol class="buoc">
+        {buoc.map((b) => <li class="the"><h3>{b.t}</h3><p>{b.d}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="tinh-nang">
+    <div class="khung">
+      <h2 id="tinh-nang">Làm kỹ phần khó nhất: dữ liệu thật</h2>
+      <p class="muc__dan">Danh bạ gõ tay trong Excel hiếm khi sạch. tsudev-contact được làm để bắt đúng những lỗi hay gặp nhất.</p>
+      <ul class="the-luoi">
+        {tinhNang.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ul>
+      <figure class="minh-hoa minh-hoa--rong">
+        <img src="/anh/ung-dung-toi.png" alt="Giao diện tối: bảng xem trước đang lọc các dòng Cảnh báo, kèm nút Xuất báo cáo lỗi và Xuất vCard" width="1280" height="820" loading="lazy">
+        <figcaption>Giao diện tối, đang lọc các dòng cần xem lại</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="bao-mat">
+    <div class="khung">
+      <h2 id="bao-mat">Riêng tư và an toàn</h2>
+      <p class="muc__dan">Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản. Chi tiết ở trang <a href="/bao-mat/">Bảo mật</a> và <a href="/bao-mat/kien-truc/">Kiến trúc bảo mật</a>.</p>
+      <ul class="the-luoi">
+        {baoMat.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="ma-nguon">
+    <div class="khung">
+      <h2 id="ma-nguon">Mã nguồn công khai</h2>
+      <p class="muc__dan">Toàn bộ mã nguồn, bộ kiểm thử và quy trình build nằm trên GitHub để bất kỳ ai cũng kiểm chứng được ứng dụng làm gì với danh bạ của bạn.</p>
+      <div class="mo-dau__nut">
+        <a class="nut nut--phu" href={REPO_URL} target="_blank" rel="noopener noreferrer">Mã nguồn trên GitHub</a>
+        <a class="nut nut--phu" href="/nhat-ky/">Nhật ký thay đổi</a>
+      </div>
+    </div>
+  </section>
+</Trang>

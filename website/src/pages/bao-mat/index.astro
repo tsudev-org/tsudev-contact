@@ -1,0 +1,14 @@
+---
+import TaiLieu from '../../components/TaiLieu.astro';
+import { REPO_URL, renderMd } from '../../lib/noi-dung';
+const { html } = renderMd('SECURITY.md');
+---
+<TaiLieu tieuDe="Bảo mật" moTa="Chính sách bảo mật của tsudev-contact: cách báo cáo lỗ hổng riêng tư, cam kết thời gian phản hồi, phạm vi và cách tự kiểm chứng bản tải về." duongDan="/bao-mat/" html={html} nguon="SECURITY.md">
+  <h2 id="tu-kiem-tra">Tự kiểm tra</h2>
+  <ul>
+    <li>Kiểm mã SHA-256 và chứng thực nguồn gốc của tệp trước khi chạy: xem trang <a href="/tai-ve/#kiem-tra">Tải về</a>.</li>
+    <li>Mô hình mối đe dọa và các lớp phòng thủ: <a href="/bao-mat/kien-truc/">Kiến trúc bảo mật</a>.</li>
+    <li>Kết quả quét tự động (CodeQL, gitleaks, pip-audit) công khai ở tab <a href={`${REPO_URL}/actions`} target="_blank" rel="noopener noreferrer">Actions</a> của repo.</li>
+    <li>Tệp <a href="/.well-known/security.txt">security.txt</a> theo RFC 9116.</li>
+  </ul>
+</TaiLieu>
