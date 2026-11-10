@@ -160,6 +160,17 @@ def test_tep_hong_bao_loi_khong_sap(app, window, tmp_path):
     assert 'xlsx' in window.toast.textLabel.text()
 
 
+def test_o_trang_hien_tai_to_nen_primary(app, window, samples):
+    from PySide6.QtGui import QColor
+    from PySide6.QtWidgets import QToolButton
+    loadSample(app, window, samples, 'mau-60-cham-phay.csv')
+    current = next(b for b in window.preview.pagerHost.findChildren(QToolButton) if b.property('current'))
+    image = window.grab().toImage()
+    center = current.mapTo(window, current.rect().center())
+    pixel = image.pixelColor(center.x() - 8, center.y())
+    assert pixel.name() == QColor(window.tokens.color('primary')).name()
+
+
 def test_doi_chu_de_va_ngon_ngu(app, window, samples):
     loadSample(app, window, samples, 'mau-60-cham-phay.csv')
     for theme in THEMES:

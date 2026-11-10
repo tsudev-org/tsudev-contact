@@ -247,8 +247,9 @@ class PreviewPanel(QWidget):
         self.pager.setSpacing(t.space(1))
         self.pagerHost = QWidget()
         self.pagerHost.setLayout(self.pager)
-        self.pagerHost.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.pagerHost.setStyleSheet('background: transparent;')
+        # Chỉ làm trong suốt chính khung chứa: stylesheet không có bộ chọn sẽ đè cả nền các nút trang con.
+        self.pagerHost.setObjectName('pagerHost')
+        self.pagerHost.setStyleSheet('#pagerHost { background: transparent; }')
         footerLayout.addLayout(left, 1)
         footerLayout.addWidget(self.summaryLabel, 1)
         footerLayout.addWidget(self.pagerHost, 1, Qt.AlignmentFlag.AlignRight)
