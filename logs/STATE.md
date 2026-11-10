@@ -1,12 +1,8 @@
 # STATE.md - Trạng thái project (agent đọc đầu phiên, cập nhật cuối phiên)
 
 ## Hàng đợi task (làm từ trên xuống)
-- [ ] **Chủ project merge 4 PR xếp chồng theo thứ tự** #9 -> #10 -> #11 -> #12 (Squash). Agent không được tự merge.
-- [ ] Phát hành bản mới: `APP_VERSION` theo `{YY}.{M}.{DD}{NN}` (ví dụ `26.11.1101`), chuyển mục "Chưa phát hành" của CHANGELOG thành mục phiên bản, tag `v<APP_VERSION>` -> Actions build + SBOM + attestation.
-- [ ] Sau khi có bản mới: `cd website && npm ci && npm run deploy` (wrangler đã đăng nhập tài khoản tsudev), rồi `gh repo edit tsudev-org/tsudev-contact --homepage https://contact.tsudev.com`; báo phiếu `tsudev/logs/handover/20261109-06_*` là contact đã xong.
-- [ ] Bật ruleset bảo vệ `main` theo `GIT_WORKFLOW.md` mục 2 (hiện "Branch not protected"); status check bắt buộc: `Lint + test (Linux)`, `Test (Windows)`, `Quét lộ bí mật (gitleaks)`, `Kiểm quy ước`.
-- [ ] **QU-STD-AUTH** chờ `tsudev-standards` sửa bảng mục 1 (TS-15): repo này là **hạng C** (đã ghi README, chủ project ủy quyền 10/11/2026).
 - [ ] Chủ project chọn giấy phép mã nguồn (repo public nhưng chưa có `LICENSE` = mặc định giữ mọi quyền).
+- [ ] **QU-STD-AUTH** chờ `tsudev-standards` xử lý TS-15 (bảng mục 1 ghi sai hạng); repo này là **hạng C** (đã ghi README).
 
 ### Gợi ý (chưa phải task)
 - Xóa chứng thư thử nghiệm tự ký còn sót trong kho tin cậy của Windows (phiếu 20260820-03).
@@ -18,6 +14,7 @@
 |---|---|---|
 
 ## Đã hoàn thành (mới nhất trên cùng)
+- 10/11/2026 - Merge #9, #13 (thay #10 bị GitHub tự đóng khi xóa nhánh base), #11, #12; phát hành **v26.11.1001** (Actions: test, build, SBOM, attestation đều đạt; đã tải về kiểm SHA-256 + `gh attestation verify` + chạy thật trên Windows); deploy **https://contact.tsudev.com** (9 trang 200, header bảo mật đủ, HTTP->HTTPS 301); `homepage` repo đổi sang trang này; bật ruleset "Bảo vệ main" (id 26943513, 4 check bắt buộc); merge Dependabot #14 (setup-python v7.1.0, đã đối chiếu SHA) và #16 (playwright 1.65); gửi phiếu `tsudev/logs/handover/20261110-04_*`.
 - 10/11/2026 - Nâng cấp toàn diện (4 PR xếp chồng, CI xanh): PR #9 bỏ Facebook, nhận diện tsudev, QU-STD-1/2/BRAND (icon), README hạng C; PR #10 PySide6 + lõi `src/engine` (vá chèn vCard, PII chỉ trong RAM, trần đầu vào, chuẩn hóa SĐT VN), i18n vi/en, QU-STD-TABLE, 84 test, khóa hash, SBOM; PR #11 CI (ruff, pytest Linux+Windows, pip-audit, gitleaks), attestation, Dependabot; PR #12 website contact.tsudev.com (chưa deploy - chờ bản phát hành mới)
 - 20/08/2026 - T14: repo chuyển **public**; Actions hết bị chặn, chạy trọn pipeline xanh (run `32291387041`); sửa 2 lỗi workflow (cache pip thiếu requirements.txt, đối chiếu tag khi chạy tay)
 - 20/08/2026 - T13 `8470ceb`: `scripts/sign-win.ps1` ký Authenticode + dấu thời gian miễn phí, `build-win.ps1` thêm `-Sign` và tự ghi `release/SHA256SUMS.txt`
@@ -36,6 +33,8 @@
 - 19/08/2026 - Khởi tạo bộ quy ước v1.0.0
 
 ## Quyết định quan trọng
+- 10/11/2026 - **PR xếp chồng**: merge PR dưới với `--delete-branch` làm GitHub ĐÓNG (không đổi base) PR phía trên. Cách đúng: merge không xóa nhánh -> `gh pr edit <trên> --base main` -> mới xóa nhánh; đồng bộ bằng `git merge origin/main` (không rebase/force-push).
+- 10/11/2026 - Ruleset `main`: bắt buộc PR + 4 check (`Lint + test (Linux)`, `Test (Windows)`, `Quét lộ bí mật (gitleaks)`, `Kiểm quy ước`), nhánh phải cập nhật với main, giải quyết hết hội thoại; admin chỉ bypass qua PR (giống tsudev-files).
 - 10/11/2026 - **Giao diện PySide6-Essentials** thay tkinter (exe ~26 MB); lõi `src/engine` thuần Python. Tên `engine` vì `.gitignore` chuẩn chặn đường dẫn `core`.
 - 10/11/2026 - **Ngoại tuyến 100%**: không tự kiểm tra cập nhật, QtNetwork bị loại khỏi bản đóng gói. Hạng sản phẩm C.
 - 10/11/2026 - **Danh bạ chỉ trong RAM**; settings ở `%LOCALAPPDATA%\tsudev-contact`; khởi động xóa `contacts_data.db` bản cũ để lại trong %TEMP%.

@@ -1,7 +1,7 @@
 # PHIẾU BÀN GIAO - Nâng cấp toàn diện tsudev-contact
 
 - **Mã phiếu**: 20261110-01
-- **Từ**: agent-contact - **Đến**: phiên sau / chủ project
+- **Từ**: agent-contact - **Đến**: phiên sau / chủ project (ĐÃ XỬ LÝ)
 - **Thời điểm**: 17:45 10/11/2026
 - **Ủy quyền**: chủ project cấp toàn quyền (chat 10/11/2026): Việt hóa mặc định, bỏ Facebook, website tên miền con, gia cố bảo mật, tự build/chạy thử trên máy.
 
@@ -24,3 +24,7 @@ Xem hàng đợi `logs/STATE.md`: merge #9..#12 -> phát hành bản mới -> de
 ## Lưu ý
 - Không chụp màn hình desktop bằng CopyFromScreen (Windows chặn đưa cửa sổ lên trước, chụp nhầm cửa sổ khác). Dùng `QWidget.grab()`.
 - Venv test Windows: `%TEMP%\tsudev-contact-venv` (do `scripts/test-gui-win.ps1` tạo, dùng lại được).
+
+## Kết quả (20:20 10/11/2026)
+- Đã merge toàn bộ, phát hành `v26.11.1001`, website `contact.tsudev.com` hoạt động, ruleset `main` đã bật.
+- Còn mở: chọn `LICENSE` (chủ project), TS-15 ở `tsudev-standards`.
