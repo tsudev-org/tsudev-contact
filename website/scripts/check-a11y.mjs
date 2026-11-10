@@ -1,5 +1,5 @@
-// Kiểm tra khả năng truy cập (ACCESSIBILITY.md của tsudev) bằng axe-core: mọi trang trong dist/ ở cả 3 chế độ màu
-// (Sáng, Ấm, Tối - chọn qua localStorage "tsudev-theme" như người dùng bấm nút), cộng menu giao diện đang mở;
+// Kiểm tra khả năng truy cập (ACCESSIBILITY.md của tsudev) bằng axe-core: mọi trang trong dist/ ở cả 2 chế độ màu
+// (Sáng, Tối - chọn qua localStorage "tsudev-theme" như người dùng bấm nút);
 // quy tắc WCAG 2.0/2.1/2.2 mức A và AA. Trang được phục vụ kèm CSP của production; lỗi CSP/console cũng tính là lỗi.
 // Chạy sau `npm run build`: `npm run check:a11y` (CI: website.yml). Cần Chromium của Playwright:
 // `npx playwright install --with-deps chromium`.
@@ -12,7 +12,7 @@ const browser = await chromium.launch();
 const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 let total = 0;
 const list = danhSachTrang();
-const CHE_DO = ['light', 'warm', 'dark'];
+const CHE_DO = ['light', 'dark'];
 
 async function kiem(page, nhan) {
   const { violations } = await new AxeBuilder({ page }).withTags(tags).analyze();
@@ -34,10 +34,6 @@ for (const cheDo of CHE_DO) {
     const thucTe = await page.evaluate(() => document.documentElement.dataset.theme);
     if (thucTe !== cheDo) { total++; console.error(`[a11y] LỖI ${cheDo} ${path}: data-theme = ${thucTe}`); }
     await kiem(page, `${cheDo} ${path}`);
-    if (path === '/') {
-      await page.click('#giao-dien button[aria-haspopup]');
-      await kiem(page, `${cheDo} ${path} (menu giao diện mở)`);
-    }
     await page.close();
   }
   await context.close();

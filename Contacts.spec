@@ -58,6 +58,7 @@ a = Analysis(
         ('assets/fonts/Inter-LICENSE.txt', 'assets/fonts'),
         ('THIRD-PARTY-NOTICES.md', '.'),
         ('.standards/tokens/design-tokens.json', '.standards/tokens'),
+        ('tokens/extensions.tsudev-contact.json', 'tokens'),
     ],
     hiddenimports=[],
     hookspath=[],

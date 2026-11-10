@@ -19,12 +19,12 @@ APP_DIRNAME = 'tsudev-contact'
 SETTINGS_FILE = 'settings.json'
 MAX_SETTINGS_BYTES = 64 * 1024
 
-THEMES = ('system', 'light', 'warm', 'dark')
+THEMES = ('light', 'dark', 'system')   # chế độ Ấm đã bỏ (phiếu 20261110-05); 'warm' cũ đọc thành 'light'
 LANGUAGES = ('vi', 'en')
 PAGE_SIZES = (10, 20, 50, 100, 200)       # .standards/docs/DATA_TABLE.md mục 2
 
 DEFAULTS = {
-    'theme': 'system',
+    'theme': 'dark',
     'language': 'vi',
     'pagesize.preview': 10,
     'fixLeadingZero': True,
@@ -68,6 +68,8 @@ class Settings:
         except (OSError, ValueError):
             return
         if isinstance(stored, dict):
+            if stored.get('theme') == 'warm':   # người từng chọn Ấm muốn nền sáng
+                stored['theme'] = 'light'
             for key, value in stored.items():
                 if key in _VALIDATORS and _VALIDATORS[key](value):
                     self._values[key] = value

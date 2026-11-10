@@ -13,10 +13,9 @@ STRINGS = {
     'header.theme': 'Giao diện',
     'header.language': 'Ngôn ngữ',
     'header.about': 'Giới thiệu',
-    'theme.system': 'Theo hệ thống',
     'theme.light': 'Sáng',
-    'theme.warm': 'Ấm',
     'theme.dark': 'Tối',
+    'theme.system': 'Hệ thống',
 
     # --- Bước 1 ---
     'step1.title': '1. Chọn tệp CSV',

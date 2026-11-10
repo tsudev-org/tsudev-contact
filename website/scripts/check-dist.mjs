@@ -32,8 +32,12 @@ function kiemTra(tep, html) {
   const viTriScript = html.indexOf('<script src="/theme.js">');
   const viTriCss = html.search(/<link[^>]*rel="stylesheet"/);
   if (viTriScript < 0 || viTriScript > html.indexOf('</head>') || (viTriCss >= 0 && viTriScript > viTriCss)) loi.push(`${ten}: theme.js phải nằm trong <head>, trước stylesheet`);
+  // Bộ chọn giao diện (phiếu 20261110-05): đúng ba lựa chọn, radiogroup, nằm ở chân trang; mặc định Tối.
   const luaChon = [...html.matchAll(/data-chon-giao-dien="([a-z]+)"/g)].map((m) => m[1]).join(',');
-  if (luaChon !== 'light,warm,dark,system') loi.push(`${ten}: menu giao diện cần đủ light,warm,dark,system: ${luaChon}`);
+  if (luaChon !== 'light,dark,system') loi.push(`${ten}: bộ chọn giao diện cần đúng light,dark,system: ${luaChon}`);
+  const viTriChon = html.indexOf('id="giao-dien"');
+  if (viTriChon < html.indexOf('<footer') || !/id="giao-dien" role="radiogroup" aria-label="Giao diện"/.test(html)) loi.push(`${ten}: bộ chọn giao diện phải là radiogroup trong <footer>`);
+  if (!/<html lang="vi" data-theme="dark">/.test(html)) loi.push(`${ten}: mặc định phải là data-theme="dark"`);
   if (/<style[\s>]/.test(html) || / style="/.test(html)) loi.push(`${ten}: có CSS nội tuyến (CSP chặn)`);
   for (const a of html.matchAll(/<a [^>]*target="_blank"[^>]*>/g)) {
     if (!a[0].includes('rel="noopener noreferrer"')) loi.push(`${ten}: thiếu rel noopener noreferrer: ${a[0]}`);

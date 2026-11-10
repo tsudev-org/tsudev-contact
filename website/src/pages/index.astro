@@ -14,7 +14,7 @@ const tinhNang = [
   { t: 'Báo cáo lỗi để sửa', d: 'Xuất các dòng có vấn đề ra tệp CSV mở bằng Excel, sửa xong nạp lại. Tệp báo cáo được chống chèn công thức.' },
   { t: 'vCard chuẩn RFC', d: 'Chạy với Android, iPhone, Google Contacts, Outlook. Họ tên tiếng Việt hiển thị nguyên vẹn, không bị đảo thứ tự.' },
   { t: 'Bảng xem trước nhanh', d: 'Lọc Hợp lệ, Cảnh báo, Lỗi; tìm không dấu; phân trang 10 tới 200 dòng. Chạy mượt với 100.000 liên hệ.' },
-  { t: 'Sáng, Ấm, Tối', d: 'Theo hệ thống hoặc chọn tay; giao diện tiếng Việt mặc định, có tiếng Anh. Thiết kế đồng bộ hệ sinh thái tsudev.' },
+  { t: 'Sáng, Tối, Hệ thống', d: 'Mặc định Tối, hoặc theo hệ điều hành; giao diện tiếng Việt mặc định, có tiếng Anh. Thiết kế đồng bộ hệ sinh thái tsudev.' },
 ];
 const baoMat = [
   { t: 'Danh bạ không rời khỏi máy', d: 'Ứng dụng không có mã kết nối mạng, không tài khoản, không thu thập gì. Dữ liệu chỉ nằm trong bộ nhớ khi đang mở.' },
@@ -28,7 +28,7 @@ const baoMat = [
     <div class="khung mo-dau__luoi">
       <div>
         <span class="nhan">{ban ? `Phiên bản ${ban.phienBan} · ${ban.ngay}` : 'Bản mới đang được chuẩn bị'}</span>
-        <h1>Danh bạ từ Excel vào điện thoại, đúng và đủ</h1>
+        <h1>Danh bạ từ Excel vào điện thoại, <span class="chu-tim">đúng và đủ</span></h1>
         <p class="mo-dau__phu">tsudev-contact chuyển tệp CSV thành vCard (.vcf), kiểm tra từng số điện thoại trước khi xuất và chỉ cho bạn dòng nào cần sửa. Chạy hoàn toàn trên máy của bạn, không cần mạng, không cần tài khoản.</p>
         <div class="mo-dau__nut">
           <a class="nut nut--chinh" href="/tai-ve/">Tải tsudev-contact</a>
@@ -43,7 +43,7 @@ const baoMat = [
     </div>
   </section>
 
-  <section class="muc muc--nen" aria-labelledby="cach-dung">
+  <section class="muc" aria-labelledby="cach-dung">
     <div class="khung">
       <h2 id="cach-dung">Ba bước là xong</h2>
       <ol class="buoc">
@@ -66,7 +66,7 @@ const baoMat = [
     </div>
   </section>
 
-  <section class="muc muc--nen" aria-labelledby="bao-mat">
+  <section class="muc" aria-labelledby="bao-mat">
     <div class="khung">
       <h2 id="bao-mat">Riêng tư và an toàn</h2>
       <p class="muc__dan">Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản. Chi tiết ở trang <a href="/bao-mat/">Bảo mật</a> và <a href="/bao-mat/kien-truc/">Kiến trúc bảo mật</a>.</p>
