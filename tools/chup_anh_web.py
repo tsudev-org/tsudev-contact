@@ -40,7 +40,8 @@ def main() -> None:
     from src.ui.main_window import MainWindow
     with tempfile.TemporaryDirectory() as tmp:
         makeSamples(tmp)
-        for theme, statusFilter, name in (('light', 'all', 'ung-dung-sang.png'), ('dark', 'warning', 'ung-dung-toi.png')):
+        shots = (('light', 'all', 'ung-dung-sang.png'), ('dark', 'warning', 'ung-dung-toi.png'))
+        for theme, statusFilter, name in shots:
             w = MainWindow(Settings(os.path.join(tmp, f'settings-{theme}.json')))
             w.setTheme(theme)
             w.resize(*SIZE)
