@@ -1,0 +1,9 @@
+# Công cụ phát triển, kiểm thử, đóng gói. Khóa ở requirements-dev.txt.
+-c requirements.txt
+pytest
+hypothesis
+pyinstaller
+pillow            # chỉ dùng cho tools/gen_icons.py, KHÔNG đóng gói vào app
+ruff
+pip-audit
+cyclonedx-bom     # SBOM CycloneDX cho mỗi bản phát hành

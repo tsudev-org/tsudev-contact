@@ -1,55 +1,127 @@
 # -*- coding: utf-8 -*-
-"""Tùy chọn người dùng (chủ đề giao diện...) lưu trong thư mục dữ liệu tạm của ứng dụng.
+"""Tùy chọn người dùng: lưu trong thư mục cấu hình riêng của người dùng, ghi nguyên tử.
 
-KHÔNG lưu cạnh file thực thi: thư mục cài đặt có thể chỉ-đọc (xem docs/ARCHITECTURE.md).
-File này chỉ chứa tùy chọn hiển thị - tuyệt đối không chứa dữ liệu danh bạ.
+- Windows: %LOCALAPPDATA%\\tsudev-contact\\settings.json
+- Linux/macOS: $XDG_CONFIG_HOME/tsudev-contact (mặc định ~/.config/tsudev-contact)
+
+KHÔNG dùng thư mục temp dùng chung (bản cũ dùng %TEMP% / /tmp: đường dẫn đoán trước được,
+máy nhiều người dùng trên Linux có thể bị cài symlink). File này chỉ chứa tùy chọn hiển
+thị - tuyệt đối không chứa dữ liệu danh bạ. Mọi giá trị đọc ra đều được kiểm lại.
 """
+from __future__ import annotations
+
 import json
 import os
+import sys
 import tempfile
 
 APP_DIRNAME = 'tsudev-contact'
 SETTINGS_FILE = 'settings.json'
-THEMES = ('light', 'warm', 'dark')
-THEME_LABELS = {'light': 'Sáng', 'warm': 'Ấm', 'dark': 'Tối'}
-DEFAULT_SETTINGS = {'theme': 'light'}
+MAX_SETTINGS_BYTES = 64 * 1024
+
+THEMES = ('system', 'light', 'warm', 'dark')
+LANGUAGES = ('vi', 'en')
+PAGE_SIZES = (10, 20, 50, 100, 200)       # .standards/docs/DATA_TABLE.md mục 2
+
+DEFAULTS = {
+    'theme': 'system',
+    'language': 'vi',
+    'pagesize.preview': 10,
+    'fixLeadingZero': True,
+    'dropDuplicatePhones': False,
+}
+_VALIDATORS = {
+    'theme': lambda v: v in THEMES,
+    'language': lambda v: v in LANGUAGES,
+    'pagesize.preview': lambda v: type(v) is int and v in PAGE_SIZES,
+    'fixLeadingZero': lambda v: type(v) is bool,
+    'dropDuplicatePhones': lambda v: type(v) is bool,
+}
 
 
-def appDataDir() -> str:
-    """Thư mục dữ liệu tạm của ứng dụng trong temp người dùng (tự tạo nếu chưa có)."""
-    path = os.path.join(tempfile.gettempdir(), APP_DIRNAME)
-    os.makedirs(path, exist_ok=True)
-    return path
+def configDir() -> str:
+    if sys.platform == 'win32':
+        base = os.environ.get('LOCALAPPDATA') or os.path.expanduser(r'~\AppData\Local')
+    else:
+        base = os.environ.get('XDG_CONFIG_HOME') or os.path.expanduser('~/.config')
+    return os.path.join(base, APP_DIRNAME)
 
 
 def settingsPath() -> str:
-    return os.path.join(appDataDir(), SETTINGS_FILE)
+    return os.path.join(configDir(), SETTINGS_FILE)
 
 
-def loadSettings(path: str = None) -> dict:
-    """Đọc tùy chọn; file hỏng/thiếu → trả mặc định (không bao giờ ném lỗi ra UI)."""
-    settings = dict(DEFAULT_SETTINGS)
-    try:
-        with open(path or settingsPath(), 'r', encoding='utf-8') as f:
-            stored = json.load(f)
+class Settings:
+    """Đọc một lần, ghi nguyên tử mỗi khi đổi. Lỗi đọc/ghi không bao giờ làm sập app."""
+
+    def __init__(self, path: str | None = None):
+        self.path = path or settingsPath()
+        self._values = dict(DEFAULTS)
+        self._load()
+
+    def _load(self) -> None:
+        try:
+            if os.path.getsize(self.path) > MAX_SETTINGS_BYTES:
+                return
+            with open(self.path, encoding='utf-8') as f:
+                stored = json.load(f)
+        except (OSError, ValueError):
+            return
         if isinstance(stored, dict):
-            settings.update({k: v for k, v in stored.items() if k in DEFAULT_SETTINGS})
-    except (OSError, ValueError):
-        pass
-    if settings['theme'] not in THEMES:
-        settings['theme'] = DEFAULT_SETTINGS['theme']
-    return settings
+            for key, value in stored.items():
+                if key in _VALIDATORS and _VALIDATORS[key](value):
+                    self._values[key] = value
+
+    def get(self, key: str):
+        return self._values[key]
+
+    def set(self, key: str, value) -> None:
+        if key not in _VALIDATORS:
+            raise KeyError(f'Tùy chọn không hợp lệ: {key}')
+        if not _VALIDATORS[key](value):
+            raise ValueError(f'Giá trị không hợp lệ cho {key}: {value!r}')
+        self._values[key] = value
+        self._save()
+
+    def _save(self) -> None:
+        directory = os.path.dirname(self.path)
+        try:
+            os.makedirs(directory, exist_ok=True)
+            fd, tempPath = tempfile.mkstemp(prefix='.settings-', suffix='.tmp', dir=directory)
+            try:
+                with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                    json.dump(self._values, f, ensure_ascii=False, indent=2)
+                os.replace(tempPath, self.path)
+            except BaseException:
+                try:
+                    os.unlink(tempPath)
+                except OSError:
+                    pass
+                raise
+        except OSError:
+            pass  # đĩa đầy / chỉ-đọc: mất tùy chọn hiển thị, app vẫn chạy
 
 
-def saveSetting(key: str, value, path: str = None) -> None:
-    """Ghi 1 tùy chọn. Lỗi ghi (đĩa đầy, chỉ-đọc) chỉ làm mất tùy chọn, không làm sập app."""
-    if key not in DEFAULT_SETTINGS:
-        raise KeyError(f"Tùy chọn không hợp lệ: {key}")
-    target = path or settingsPath()
-    settings = loadSettings(target)
-    settings[key] = value
+def removeLegacyData() -> list[str]:
+    """Xóa dữ liệu các bản cũ để lại trong thư mục temp, gồm CSDL chứa danh bạ (PII).
+
+    Bản <= 26.8.2002 ghi `contacts_data.db` (toàn bộ danh bạ lần chuyển gần nhất) vào
+    %TEMP%\\tsudev-contact và không bao giờ xóa. Chỉ xóa đúng các tên file app đã tạo,
+    và chỉ khi đó là file thường (không theo symlink).
+    """
+    removed = []
+    legacyDir = os.path.join(tempfile.gettempdir(), APP_DIRNAME)
+    for name in ('contacts_data.db', 'contacts_data.db-journal', 'settings.json'):
+        path = os.path.join(legacyDir, name)
+        try:
+            if os.path.isfile(path) and not os.path.islink(path):
+                os.remove(path)
+                removed.append(path)
+        except OSError:
+            pass
     try:
-        with open(target, 'w', encoding='utf-8') as f:
-            json.dump(settings, f, ensure_ascii=False, indent=2)
+        if os.path.isdir(legacyDir) and not os.path.islink(legacyDir) and not os.listdir(legacyDir):
+            os.rmdir(legacyDir)
     except OSError:
         pass
+    return removed

@@ -5,6 +5,12 @@ Quy ước đặt tên bản phát hành: `.standards/docs/VERSIONING.md` mục 
 
 ## Chưa phát hành
 
+- **Giao diện mới bằng PySide6 (Qt 6)**: 3 bước trên một màn hình, kéo-thả tệp, tự ghép cột kèm giá trị mẫu, tự kiểm tra dữ liệu, bảng xem trước lọc/tìm không dấu/phân trang chuẩn `DATA_TABLE.md` (QU-STD-TABLE), chủ đề Theo hệ thống/Sáng/Ấm/Tối, font Inter, hộp thoại Giới thiệu nối về tsudev.com. Bỏ màn hình hiệu ứng khởi động.
+- **Tiếng Việt mặc định + tiếng Anh** (`src/i18n/`).
+- **Bảo mật**: sửa lỗ hổng chèn vCard (ô chứa xuống dòng sinh được liên hệ giả); thoát ký tự RFC 6350 và gập dòng mọi trường; bỏ ký tự vô hình/đảo chiều chữ; trần kích thước tệp/dòng/cột/ô; không còn bỏ lặng lẽ ký tự hỏng; báo cáo lỗi chống chèn công thức; danh bạ chỉ giữ trong RAM và xóa CSDL tạm bản cũ để lại trong %TEMP%; ghi tệp nguyên tử.
+- **Dữ liệu**: chuẩn hóa SĐT Việt Nam (+84, thêm số 0 bị Excel làm mất, nhiều số một ô), email, ngày sinh (cả số ngày kiểu Excel), phát hiện trùng số; thêm trường Chức vụ; vCard có `N`, CRLF, `REV` theo UTC thật.
+- **Chuỗi cung ứng**: phụ thuộc khóa phiên bản + hash, SBOM CycloneDX đi kèm bản phát hành, pip-audit, ruff.
+- Bản `.exe` có siêu dữ liệu nhà phát hành tsudev, bỏ UPX, loại module Qt không dùng (kể cả mạng).
 - Bỏ liên kết Facebook; liên kết hỗ trợ trỏ về trang sản phẩm `https://contact.tsudev.com`. Nhà phát hành ghi `tsudev`.
 - Icon ứng dụng sinh từ dấu hiệu thu gọn tsudev (`tools/gen_icons.py`, `.ico` nhiều lớp 16 tới 256); bỏ `icon.ico`, `icon.png`, `lock.png` cũ.
 - Giao diện đọc token thẳng từ `.standards/tokens/` (QU-STD-1); xóa `tokens/` và bản sao quy ước cũ trong `docs/` (QU-STD-2).

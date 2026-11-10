@@ -23,33 +23,45 @@ Get-FileHash tsudev-contact_26.8.2002_x64-setup.exe -Algorithm SHA256
 ```
 
 
+## Tính năng
+
+- **Kéo-thả tệp CSV**, tự nhận bảng mã (UTF-8, UTF-16, Windows-1258) và dấu phân cách (`,` `;` tab `|`).
+- **Tự ghép cột** tiếng Việt/tiếng Anh/Google Contacts, xem giá trị mẫu của từng cột.
+- **Kiểm tra từng dòng**: chuẩn hóa số điện thoại Việt Nam (`+84`, mất số 0 đầu do Excel, nhiều số
+  trong một ô), email, ngày sinh; phát hiện **trùng số**; liên hệ lỗi không được xuất.
+- **Xem trước** có lọc Hợp lệ / Cảnh báo / Lỗi, tìm không dấu, phân trang 10/20/50/100/200.
+- **Xuất vCard 3.0** chuẩn RFC (Android, iPhone, Google Contacts) và **báo cáo lỗi** CSV để sửa dữ liệu.
+- Giao diện Sáng / Ấm / Tối / Theo hệ thống; tiếng Việt (mặc định) và tiếng Anh.
+- **Bảo mật**: chạy ngoại tuyến, không lưu danh bạ xuống đĩa, chống chèn vCard và chèn công thức.
+  Chi tiết: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) mục 5, báo lỗ hổng: [`SECURITY.md`](SECURITY.md).
+
 ## Chạy từ mã nguồn (lập trình viên)
 
-Yêu cầu **Python ≥ 3.8** (dùng toán tử `:=`) kèm `tkinter`. Đã kiểm trên Python 3.14.
+Yêu cầu **Python 3.11+**.
 
 ```bash
-python -m pip install pillow     # dependency duy nhất ngoài thư viện chuẩn
-python contacts.pyw              # Windows: bấm đúp contacts.pyw
+python -m venv .venv && . .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install --require-hashes --no-deps -r requirements.txt -r requirements-dev.txt
+python contacts.pyw
 ```
-
-1. **Chọn file CSV** danh bạ (dòng đầu là tên cột, hỗ trợ BOM UTF-8).
-2. Ánh xạ cột CSV sang trường vCard - bắt buộc có **Tên** và **SĐT**.
-3. Bấm chuyển đổi → file `.vcf` được ghi cạnh file CSV. Xem trước dữ liệu ở menu tương ứng.
-4. Menu **Giao diện** đổi chủ đề Sáng / Ấm / Tối; lựa chọn được ghi nhớ cho lần mở sau.
 
 ## Chạy test
 
 ```bash
-python -m unittest discover -s tests    # logic: không cần tkinter/Pillow
+python -m pytest -q tests                                              # Linux/WSL: giao diện chạy offscreen
+ruff check .
 ```
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\test-gui-win.ps1   # thêm cả kiểm thử GUI
+powershell -ExecutionPolicy Bypass -File scripts\test-gui-win.ps1      # Windows, venv riêng
 ```
 
-`tests/test_gui_smoke.py` dựng cửa sổ thật và đi hết kịch bản người dùng (khởi động → đoán cột →
-chuyển đổi → xem trước → đổi chủ đề). Máy không có tkinter hoặc không có phiên đồ họa (WSL, SSH)
-thì phần này **tự bỏ qua**. Chi tiết: `docs/ARCHITECTURE.md` mục 8.
+Dữ liệu mẫu (tên, số giả): `python tests/fixtures/make_samples.py <thư-mục>`.
+
+## Phụ thuộc
+
+Sửa `requirements.in` / `requirements-dev.in` rồi chạy `scripts/lock-deps.sh` để khóa lại kèm hash.
+Không bao giờ `pip install` gói lẻ ngoài file khóa.
 
 ## Đóng gói Windows
 
@@ -57,7 +69,7 @@ thì phần này **tự bỏ qua**. Chi tiết: `docs/ARCHITECTURE.md` mục 8.
 powershell -ExecutionPolicy Bypass -File scripts\build-win.ps1
 ```
 
-Script tự cài phụ thuộc, chạy test, gọi PyInstaller và đặt sản phẩm vào `release/` với tên
+Script cài phụ thuộc theo hash, chạy test, gọi PyInstaller, sinh SBOM CycloneDX và đặt sản phẩm vào `release/` với tên
 theo `.standards/docs/VERSIONING.md` mục 2 (ví dụ `tsudev-contact_26.8.2002_x64-setup.exe`).
 Tên file lấy từ `RELEASE_BASENAME` trong `src/app_info.py` - mỗi bản mới tăng 2 số cuối.
 
