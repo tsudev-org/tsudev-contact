@@ -5,6 +5,7 @@ Quy ước đặt tên bản phát hành: `.standards/docs/VERSIONING.md` mục 
 
 ## Chưa phát hành
 
+- **CI**: workflow `CI` mỗi PR (ruff, pytest Linux + Windows, pip-audit, gitleaks ghim checksum); phát hành ghim action theo SHA, cài theo hash, kèm SBOM và **chứng thực nguồn gốc bản build** (`gh attestation verify`); Dependabot hằng tháng.
 - **Giao diện mới bằng PySide6 (Qt 6)**: 3 bước trên một màn hình, kéo-thả tệp, tự ghép cột kèm giá trị mẫu, tự kiểm tra dữ liệu, bảng xem trước lọc/tìm không dấu/phân trang chuẩn `DATA_TABLE.md` (QU-STD-TABLE), chủ đề Theo hệ thống/Sáng/Ấm/Tối, font Inter, hộp thoại Giới thiệu nối về tsudev.com. Bỏ màn hình hiệu ứng khởi động.
 - **Tiếng Việt mặc định + tiếng Anh** (`src/i18n/`).
 - **Bảo mật**: sửa lỗ hổng chèn vCard (ô chứa xuống dòng sinh được liên hệ giả); thoát ký tự RFC 6350 và gập dòng mọi trường; bỏ ký tự vô hình/đảo chiều chữ; trần kích thước tệp/dòng/cột/ô; không còn bỏ lặng lẽ ký tự hỏng; báo cáo lỗi chống chèn công thức; danh bạ chỉ giữ trong RAM và xóa CSDL tạm bản cũ để lại trong %TEMP%; ghi tệp nguyên tử.
