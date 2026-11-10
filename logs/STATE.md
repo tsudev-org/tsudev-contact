@@ -14,6 +14,7 @@
 |---|---|---|
 
 ## Đã hoàn thành (mới nhất trên cùng)
+- 10/11/2026 - Phiếu `20261110-05` (giao diện đen + tím kiểu Supabase): website + app PySide6 chỉ Sáng/Tối/Hệ thống, mặc định Tối; màu riêng ở `tokens/extensions.tsudev-contact.json`. Chi tiết: mục Kết quả của phiếu.
 - 10/11/2026 - Kết phiên: nhả khóa (commit nhả khóa trước đó bị mất khi tạo lại nhánh website), phiếu bàn giao `20261110-02`.
 - 10/11/2026 - Merge #9, #13 (thay #10 bị GitHub tự đóng khi xóa nhánh base), #11, #12; phát hành **v26.11.1001** (Actions: test, build, SBOM, attestation đều đạt; đã tải về kiểm SHA-256 + `gh attestation verify` + chạy thật trên Windows); deploy **https://contact.tsudev.com** (9 trang 200, header bảo mật đủ, HTTP->HTTPS 301); `homepage` repo đổi sang trang này; bật ruleset "Bảo vệ main" (id 26943513, 4 check bắt buộc); merge Dependabot #14 (setup-python v7.1.0, đã đối chiếu SHA) và #16 (playwright 1.65); gửi phiếu `tsudev/logs/handover/20261110-04_*`.
 - 10/11/2026 - Nâng cấp toàn diện (4 PR xếp chồng, CI xanh): PR #9 bỏ Facebook, nhận diện tsudev, QU-STD-1/2/BRAND (icon), README hạng C; PR #10 PySide6 + lõi `src/engine` (vá chèn vCard, PII chỉ trong RAM, trần đầu vào, chuẩn hóa SĐT VN), i18n vi/en, QU-STD-TABLE, 84 test, khóa hash, SBOM; PR #11 CI (ruff, pytest Linux+Windows, pip-audit, gitleaks), attestation, Dependabot; PR #12 website contact.tsudev.com (chưa deploy - chờ bản phát hành mới)

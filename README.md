@@ -31,7 +31,7 @@ Get-FileHash tsudev-contact_26.8.2002_x64-setup.exe -Algorithm SHA256
   trong một ô), email, ngày sinh; phát hiện **trùng số**; liên hệ lỗi không được xuất.
 - **Xem trước** có lọc Hợp lệ / Cảnh báo / Lỗi, tìm không dấu, phân trang 10/20/50/100/200.
 - **Xuất vCard 3.0** chuẩn RFC (Android, iPhone, Google Contacts) và **báo cáo lỗi** CSV để sửa dữ liệu.
-- Giao diện Sáng / Ấm / Tối / Theo hệ thống; tiếng Việt (mặc định) và tiếng Anh.
+- Giao diện Sáng / Tối / Hệ thống (mặc định Tối, tông đen + tím của hệ tsudev); tiếng Việt (mặc định) và tiếng Anh.
 - **Bảo mật**: chạy ngoại tuyến, không lưu danh bạ xuống đĩa, chống chèn vCard và chèn công thức.
   Chi tiết: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) mục 5, báo lỗ hổng: [`SECURITY.md`](SECURITY.md).
 

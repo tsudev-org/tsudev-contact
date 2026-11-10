@@ -189,7 +189,7 @@ QMenu::indicator {{ width: 14px; height: 14px; left: {sp(1)}px; }}
 
 
 def applyTheme(app, choice: str) -> str:
-    """Áp chủ đề cho toàn app. Trả về chủ đề thật đã áp (light | warm | dark)."""
+    """Áp chủ đề cho toàn app. Trả về chủ đề thật đã áp (light | dark)."""
     loadFonts()
     theme = resolveTheme(choice)
     t = loadTokens(theme)

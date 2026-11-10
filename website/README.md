@@ -1,7 +1,7 @@
 # Website contact.tsudev.com
 
 Trang sản phẩm của tsudev-contact. Khung dùng chung với `files.tsudev.com`: [Astro](https://astro.build) dựng trang
-tĩnh; JavaScript phía trình duyệt chỉ có `public/theme.js` (nút đổi giao diện Sáng/Ấm/Tối/Theo hệ thống, khóa
+tĩnh; JavaScript phía trình duyệt chỉ có `public/theme.js` (nút đổi giao diện Sáng/Tối/Hệ thống ở chân trang, mặc định Tối, khóa
 `tsudev-theme` như tsudev.com); host trên Cloudflare Workers Static Assets (Worker `tsudev-contact`, không có mã
 chạy; tên miền con `contact.tsudev.com`, cấu hình ở `wrangler.jsonc`).
 
@@ -21,7 +21,7 @@ cd website
 npm ci
 npm run dev          # http://localhost:4321
 npm run build        # dựng vào dist/ và kiểm tra
-npm run check:a11y   # axe-core WCAG 2.2 AA, Sáng + Ấm + Tối (lần đầu: npx playwright install chromium)
+npm run check:a11y   # axe-core WCAG 2.2 AA, Sáng + Tối (lần đầu: npx playwright install chromium)
 npm run check:theme  # nút đổi giao diện với CSP của production
 npm run deploy       # build rồi `wrangler deploy` (cần `npx wrangler login` với tài khoản tsudev)
 ```

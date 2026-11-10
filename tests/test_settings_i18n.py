@@ -45,8 +45,47 @@ def test_tu_choi_khoa_va_gia_tri_la(tmp_path):
 
 def test_file_qua_lon_bi_bo_qua(tmp_path):
     path = tmp_path / 'settings.json'
-    path.write_text(json.dumps({'theme': 'dark', 'pad': 'x' * 70_000}), encoding='utf-8')
-    assert Settings(str(path)).get('theme') == 'system'
+    path.write_text(json.dumps({'theme': 'light', 'pad': 'x' * 70_000}), encoding='utf-8')
+    assert Settings(str(path)).get('theme') == 'dark'
+
+
+def test_mac_dinh_toi_va_am_cu_thanh_sang(tmp_path):
+    # Phiếu 20261110-05: chỉ Sáng / Tối / Hệ thống, mặc định Tối; 'warm' cũ đọc thành Sáng
+    from src.services.settings import THEMES
+    assert THEMES == ('light', 'dark', 'system')
+    assert Settings(str(tmp_path / 'chua-co.json')).get('theme') == 'dark'
+    path = tmp_path / 'settings.json'
+    path.write_text(json.dumps({'theme': 'warm'}), encoding='utf-8')
+    assert Settings(str(path)).get('theme') == 'light'
+
+
+def test_bang_mau_den_tim_dat_tuong_phan():
+    # Bảng màu §2 của phiếu 20261110-05 phải được áp, và các cặp chữ/nền đạt WCAG AA ở cả hai chế độ
+    from src.services.tokens import THEMES, loadTokens
+
+    def lum(hexColor):
+        rgb = [int(hexColor[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+        rgb = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in rgb]
+        return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
+
+    def ratio(a, b):
+        hi, lo = sorted((lum(a), lum(b)), reverse=True)
+        return (hi + 0.05) / (lo + 0.05)
+
+    assert THEMES == ('light', 'dark')
+    assert loadTokens('dark').color('bg-base') == '#0A0A0A'
+    assert loadTokens('dark').color('primary') == '#A970FF'
+    assert loadTokens('light').color('primary') == '#7C3AED'
+    for theme in THEMES:
+        t = loadTokens(theme)
+        for bg in ('bg-base', 'bg-surface', 'bg-subtle', 'bg-hover'):
+            for fg in ('text-primary', 'text-secondary', 'text-muted', 'text-link'):
+                assert ratio(t.color(fg), t.color(bg)) >= 4.5, (theme, fg, bg)
+        for fg in ('border-control', 'focus-ring'):
+            assert ratio(t.color(fg), t.color('bg-base')) >= 3, (theme, fg)
+        assert ratio(t.color('on-primary'), t.color('primary')) >= 4.5, theme
+        for status in ('success', 'warning', 'danger', 'info'):
+            assert ratio(t.color('on-status'), t.color(status)) >= 4.5, (theme, status)
 
 
 def test_xoa_csdl_tam_cua_ban_cu(tmp_path, monkeypatch):

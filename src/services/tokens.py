@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Đọc token giao diện từ `.standards/tokens/design-tokens.json` - nguồn chân lý duy nhất.
+"""Đọc token giao diện từ `.standards/tokens/design-tokens.json` - nguồn chân lý duy nhất -
+cộng phần ghi đè màu riêng của repo ở `tokens/extensions.tsudev-contact.json` (bảng đen + tím của
+hệ tsudev, phiếu logs/handover/20261110-05). Chỉ hai chế độ: light, dark (chế độ Ấm đã bỏ).
 
 CẤM hard-code màu, cỡ chữ, bo góc, spacing trong `src/` (.standards/AGENTS.md).
 Mọi giá trị giao diện lấy qua đối tượng `Tokens`. Module này thuần Python, không phụ
@@ -13,8 +15,9 @@ from functools import cache
 from src.utils.resource_path import resourcePath
 
 TOKENS_FILE = '.standards/tokens/design-tokens.json'
-THEMES = ('light', 'warm', 'dark')
-DEFAULT_THEME = 'light'
+EXTENSIONS_FILE = 'tokens/extensions.tsudev-contact.json'
+THEMES = ('light', 'dark')
+DEFAULT_THEME = 'dark'
 GENERIC_FAMILIES = {'system-ui', '-apple-system', 'sans-serif', 'serif', 'monospace'}
 
 
@@ -23,7 +26,7 @@ def _toPx(value) -> int:
 
 
 class Tokens:
-    """Truy cập token theo một chủ đề cụ thể (light | warm | dark)."""
+    """Truy cập token theo một chủ đề cụ thể (light | dark)."""
 
     def __init__(self, data: dict, theme: str = DEFAULT_THEME):
         self._data = data
@@ -59,7 +62,19 @@ class Tokens:
 @cache
 def _loadData() -> dict:
     with open(resourcePath(TOKENS_FILE), encoding='utf-8') as f:
-        return json.load(f)
+        data = json.load(f)
+    with open(resourcePath(EXTENSIONS_FILE), encoding='utf-8') as f:
+        extensions = json.load(f)
+    colors = {}
+    for theme in THEMES:
+        base = data['color'][theme]
+        override = extensions['color'][theme]
+        unknown = set(override) - set(base)
+        if unknown:   # sai tên vai trò thì ghi đè im lặng không có tác dụng: dừng sớm
+            raise ValueError(f'{EXTENSIONS_FILE}: vai trò không có trong bảng chuẩn ({theme}): {sorted(unknown)}')
+        colors[theme] = {**base, **override}
+    data['color'] = colors
+    return data
 
 
 @cache

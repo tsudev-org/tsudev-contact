@@ -11,10 +11,9 @@ STRINGS = {
     'header.theme': 'Theme',
     'header.language': 'Language',
     'header.about': 'About',
-    'theme.system': 'System',
     'theme.light': 'Light',
-    'theme.warm': 'Warm',
     'theme.dark': 'Dark',
+    'theme.system': 'System',
 
     'step1.title': '1. Choose a CSV file',
     'step1.drop': 'Drop a CSV file here',
