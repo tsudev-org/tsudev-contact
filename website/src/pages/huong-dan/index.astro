@@ -1,0 +1,77 @@
+---
+import TaiLieu from '../../components/TaiLieu.astro';
+
+const mucLuc = [
+  { id: 'buoc-1', ten: 'Bước 1: chọn tệp CSV' },
+  { id: 'buoc-2', ten: 'Bước 2: ghép cột' },
+  { id: 'buoc-3', ten: 'Bước 3: xem trước và xuất' },
+  { id: 'trang-thai', ten: 'Hợp lệ, Cảnh báo, Lỗi' },
+  { id: 'nap-vao-dien-thoai', ten: 'Nạp vào điện thoại' },
+  { id: 'giao-dien', ten: 'Giao diện và ngôn ngữ' },
+  { id: 'phim-tat', ten: 'Phím tắt' },
+  { id: 'su-co', ten: 'Xử lý sự cố' },
+];
+---
+<TaiLieu tieuDe="Hướng dẫn sử dụng" moTa="Hướng dẫn dùng tsudev-contact: chọn tệp CSV, ghép cột, đọc trạng thái từng dòng, xuất vCard, nạp danh bạ vào Android, iPhone và Google Contacts." duongDan="/huong-dan/" mucLuc={mucLuc}>
+  <h1>Hướng dẫn sử dụng</h1>
+  <p>Mở tệp <code>tsudev-contact_..._x64-setup.exe</code> là dùng được ngay, không cần cài đặt. Cửa sổ có ba bước xếp từ trái sang phải.</p>
+
+  <h2 id="buoc-1">Bước 1: chọn tệp CSV</h2>
+  <p>Kéo tệp vào ô <em>Kéo thả tệp CSV vào đây</em>, hoặc bấm <strong>Chọn tệp...</strong> (<kbd>Ctrl</kbd>+<kbd>O</kbd>). Ứng dụng tự nhận bảng mã (UTF-8, UTF-16, Windows-1258 của Excel tiếng Việt) và dấu phân cách (phẩy, chấm phẩy, tab, gạch đứng), rồi hiện số dòng đọc được. Chưa có tệp? Xem <a href="/huong-dan/csv/">Chuẩn bị tệp CSV</a>.</p>
+
+  <h2 id="buoc-2">Bước 2: ghép cột</h2>
+  <p>Mỗi trường của danh bạ có một ô chọn cột CSV. Ứng dụng tự đoán theo tên cột tiếng Việt, tiếng Anh và tên cột của Google Contacts; bên dưới mỗi ô là giá trị mẫu lấy từ tệp để bạn kiểm tra nhanh. Hai trường bắt buộc là <strong>Họ tên</strong> và <strong>Số điện thoại</strong>; trường nào không có trong tệp thì để <em>(Không dùng)</em>.</p>
+  <ul>
+    <li><strong>Tự thêm số 0 đầu bị Excel làm mất</strong> (mặc định bật): số 9 chữ số bắt đầu bằng 3, 5, 7, 8, 9 được thêm số 0, ví dụ <code>912345678</code> thành <code>0912345678</code>. Dòng đó được đánh dấu Cảnh báo để bạn biết.</li>
+    <li><strong>Không xuất liên hệ trùng số điện thoại</strong>: bật khi muốn bỏ hẳn các dòng trùng số với một dòng phía trên. Tắt thì vẫn xuất nhưng có Cảnh báo.</li>
+  </ul>
+  <p>Mỗi lần đổi ghép cột hay tùy chọn, dữ liệu được kiểm tra lại tự động.</p>
+
+  <h2 id="buoc-3">Bước 3: xem trước và xuất</h2>
+  <p>Bảng bên phải hiện từng liên hệ kèm số dòng trong tệp gốc. Bấm <em>Tất cả, Hợp lệ, Cảnh báo, Lỗi</em> để lọc; ô tìm kiếm (<kbd>Ctrl</kbd>+<kbd>F</kbd>) tìm theo tên, số, email, gõ không dấu vẫn ra. Góc dưới bên trái chọn số dòng mỗi trang.</p>
+  <ul>
+    <li><strong>Xuất vCard</strong> (<kbd>Ctrl</kbd>+<kbd>E</kbd>): ghi tệp <code>.vcf</code> gồm mọi liên hệ không bị Lỗi. Hộp thoại hỏi trước khi ghi đè tệp đã có.</li>
+    <li><strong>Xuất báo cáo lỗi</strong>: ghi các dòng Cảnh báo, Lỗi ra tệp CSV mở được bằng Excel, có cột mô tả vấn đề. Tệp này chứa thông tin cá nhân: lưu ở nơi an toàn, sửa xong thì xóa.</li>
+  </ul>
+
+  <h2 id="trang-thai">Hợp lệ, Cảnh báo, Lỗi</h2>
+  <div class="bang" tabindex="0" role="region" aria-label="Bảng trạng thái, cuộn ngang được">
+    <table>
+      <thead><tr><th scope="col">Trạng thái</th><th scope="col">Nghĩa</th><th scope="col">Ví dụ</th></tr></thead>
+      <tbody>
+        <tr><td>Hợp lệ</td><td>Xuất bình thường</td><td>Có tên và ít nhất một số điện thoại đúng</td></tr>
+        <tr><td>Cảnh báo</td><td>Vẫn xuất, nhưng một phần bị sửa hoặc bỏ</td><td>Email sai bị bỏ; ngày sinh không có thật; đã thêm số 0 đầu; trùng số với dòng khác; ô quá dài bị cắt</td></tr>
+        <tr><td>Lỗi</td><td>Không xuất</td><td>Thiếu tên; ô số điện thoại trống hoặc toàn chữ; số quá ngắn, quá dài</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Một ô có nhiều số (cách nhau bằng <code>/</code>, <code>;</code>, <code>,</code>, xuống dòng hoặc chữ "hoặc") được tách thành nhiều số trong cùng liên hệ; số đầu tiên là số chính.</p>
+
+  <h2 id="nap-vao-dien-thoai">Nạp vào điện thoại</h2>
+  <ul>
+    <li><strong>Android</strong>: chép tệp <code>.vcf</code> vào máy, mở ứng dụng Danh bạ, chọn <em>Nhập từ bộ nhớ</em> (tên mục khác nhau tùy hãng), chọn tệp.</li>
+    <li><strong>Google Contacts</strong> (đồng bộ mọi máy): vào <code>contacts.google.com</code>, <em>Nhập</em>, chọn tệp <code>.vcf</code>.</li>
+    <li><strong>iPhone</strong>: gửi tệp vào máy (AirDrop, Thư, Tệp), chạm vào tệp, chọn <em>Thêm tất cả liên hệ</em>; hoặc nhập qua <code>icloud.com/contacts</code>.</li>
+  </ul>
+  <p>Nên thử nạp vài liên hệ trước bằng cách lọc và xuất một tệp nhỏ, nhất là khi điện thoại đã có sẵn danh bạ.</p>
+
+  <h2 id="giao-dien">Giao diện và ngôn ngữ</h2>
+  <p>Nút <strong>Giao diện</strong> ở góc trên chọn Theo hệ thống, Sáng, Ấm (dịu mắt khi làm lâu) hoặc Tối. Nút <strong>Ngôn ngữ</strong> đổi giữa Tiếng Việt (mặc định) và English. Lựa chọn được ghi nhớ cho lần mở sau; tệp cấu hình chỉ chứa các lựa chọn hiển thị, không chứa danh bạ.</p>
+
+  <h2 id="phim-tat">Phím tắt</h2>
+  <ul>
+    <li><kbd>Ctrl</kbd>+<kbd>O</kbd>: chọn tệp CSV</li>
+    <li><kbd>Ctrl</kbd>+<kbd>F</kbd>: tìm trong bảng xem trước</li>
+    <li><kbd>Ctrl</kbd>+<kbd>E</kbd>: xuất vCard</li>
+    <li><kbd>F1</kbd>: Giới thiệu</li>
+  </ul>
+
+  <h2 id="su-co">Xử lý sự cố</h2>
+  <ul>
+    <li><strong>"Tệp không phải văn bản CSV"</strong>: tệp là bảng tính Excel (<code>.xlsx</code>). Mở bằng Excel, chọn <em>Lưu dưới dạng</em>, kiểu <em>CSV UTF-8 (phân cách bằng dấu phẩy)</em>.</li>
+    <li><strong>Chữ tiếng Việt bị lỗi</strong>: tệp dùng bảng mã cũ (TCVN3, VNI) mà ứng dụng không đọc được. Chuyển sang Unicode bằng Unikey (Công cụ chuyển mã) rồi lưu lại dạng CSV UTF-8.</li>
+    <li><strong>Nhiều dòng "Ô số điện thoại không chứa chữ số nào"</strong>: thường do lệch cột trong tệp gốc (chức vụ, ghi chú nằm nhầm cột số). Xuất báo cáo lỗi để sửa.</li>
+    <li><strong>Windows cảnh báo SmartScreen</strong> ở lần chạy đầu: xem <a href="/tai-ve/#kiem-tra">Kiểm tra tệp</a>, rồi chọn <em>Thông tin thêm</em>, <em>Vẫn chạy</em>.</li>
+  </ul>
+  <p>Gặp lỗi khác? <a href="https://github.com/tsudev-org/tsudev-contact/issues" target="_blank" rel="noopener noreferrer">Mở issue trên GitHub</a>. Đừng đính kèm danh bạ thật; hãy tạo tệp mẫu vài dòng với tên, số giả.</p>
+</TaiLieu>

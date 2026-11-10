@@ -1,0 +1,11 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+import { changelogMoiNhat, RELEASES_URL, renderMd } from '../lib/noi-dung';
+// Bốn mục gần nhất (gồm "Chưa phát hành"); bản đầy đủ ở CHANGELOG.md trên GitHub.
+const { html } = renderMd('CHANGELOG.md', { md: changelogMoiNhat(4) });
+---
+<TaiLieu tieuDe="Nhật ký thay đổi" moTa="Nhật ký thay đổi của tsudev-contact theo từng phiên bản: tính năng mới, cải tiến giao diện, sửa lỗi và các bản vá bảo mật của ứng dụng." duongDan="/nhat-ky/" nguon="CHANGELOG.md">
+  <h1>Nhật ký thay đổi</h1>
+  <p>Thay đổi của từng phiên bản, mới nhất ở trên. Tệp cài của mỗi bản ở <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>.</p>
+  <Fragment set:html={html} />
+</TaiLieu>

@@ -1,0 +1,39 @@
+---
+// Khung trang tài liệu: menu bên trái + nội dung (HTML sinh từ Markdown của repo, hoặc slot).
+import Trang from '../layouts/Trang.astro';
+import { REPO_URL } from '../lib/noi-dung';
+
+interface Props { tieuDe: string; moTa: string; duongDan: string; html?: string; nguon?: string; mucLuc?: { id: string; ten: string }[] }
+const { tieuDe, moTa, duongDan, html, nguon, mucLuc } = Astro.props;
+const MENU = [
+  { href: '/huong-dan/', ten: 'Hướng dẫn sử dụng' },
+  { href: '/huong-dan/csv/', ten: 'Chuẩn bị tệp CSV' },
+  { href: '/bao-mat/', ten: 'Chính sách bảo mật' },
+  { href: '/bao-mat/kien-truc/', ten: 'Kiến trúc bảo mật' },
+  { href: '/nhat-ky/', ten: 'Nhật ký thay đổi' },
+  { href: '/ban-quyen/', ten: 'Bản quyền' },
+];
+---
+<Trang tieuDe={tieuDe} moTa={moTa} duongDan={duongDan}>
+  <div class="khung tai-lieu">
+    <nav class="tai-lieu__menu" aria-label="Tài liệu">
+      <p>Tài liệu</p>
+      <ul>
+        {MENU.map((m) => <li><a href={m.href} aria-current={m.href === duongDan ? 'page' : undefined}>{m.ten}</a></li>)}
+      </ul>
+      {mucLuc && mucLuc.length > 0 && (
+        <>
+          <p class="tai-lieu__tieu-de-phu">Trong trang này</p>
+          <ul class="tai-lieu__muc-luc">
+            {mucLuc.map((m) => <li><a href={`#${m.id}`}>{m.ten}</a></li>)}
+          </ul>
+        </>
+      )}
+    </nav>
+    <article class="van-ban">
+      {html && <Fragment set:html={html} />}
+      <slot />
+      {nguon && <p class="goi__ten">Nguồn trang: <a href={`${REPO_URL}/blob/main/${nguon}`} target="_blank" rel="noopener noreferrer">{nguon}</a> trên GitHub.</p>}
+    </article>
+  </div>
+</Trang>

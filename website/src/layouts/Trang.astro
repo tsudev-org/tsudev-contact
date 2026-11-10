@@ -1,0 +1,116 @@
+---
+// Khung chung: <head> theo ECOSYSTEM_IDENTITY mục 2.2, đầu trang, chân trang nối về tsudev.com (mục 4).
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/site.css';
+import { REPO_URL, SAN_PHAM, SITE } from '../lib/noi-dung';
+
+interface Props {
+  tieuDe?: string;     // Tên trang; bỏ trống ở trang chủ
+  moTa: string;        // 120-160 ký tự
+  duongDan: string;    // ví dụ "/tai-ve/"
+}
+const { tieuDe, moTa, duongDan } = Astro.props;
+const title = tieuDe ? `${tieuDe} - ${SAN_PHAM} | tsudev` : `${SAN_PHAM} | tsudev`;
+const ogTitle = tieuDe ? `${tieuDe} - ${SAN_PHAM}` : SAN_PHAM;
+const url = `${SITE}${duongDan}`;
+const nam = new Date().getFullYear();
+const menu = [
+  { href: '/tai-ve/', ten: 'Tải về' },
+  { href: '/huong-dan/', ten: 'Hướng dẫn' },
+  { href: '/bao-mat/', ten: 'Bảo mật' },
+];
+// Cùng 4 lựa chọn với tsudev.com (packages/ui ThemeToggle); public/theme.js đọc data-chon-giao-dien
+const cheDo = [
+  { ma: 'light', ten: 'Sáng' },
+  { ma: 'warm', ten: 'Ấm' },
+  { ma: 'dark', ten: 'Tối' },
+  { ma: 'system', ten: 'Theo hệ thống' },
+];
+const dangO = (href: string) => duongDan.startsWith(href);
+---
+<!doctype html>
+<html lang="vi" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <meta name="description" content={moTa}>
+    <meta name="theme-color" content="#EEF4FB" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0F1B2D" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+    <!-- Chế độ màu: chạy chặn, trước stylesheet, để không nháy màu (public/theme.js; CSP script-src 'self') -->
+    <script is:inline src="/theme.js"></script>
+    <link rel="canonical" href={url}>
+    <meta property="og:site_name" content="tsudev">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:title" content={ogTitle}>
+    <meta property="og:description" content={moTa}>
+    <meta property="og:image" content={`${SITE}/og-image.png`}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content={url}>
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+  </head>
+  <body data-platform="web">
+    <a class="bo-qua" href="#noi-dung">Bỏ qua tới nội dung</a>
+    <header class="dau-trang">
+      <div class="khung dau-trang__trong">
+        <a class="thuong-hieu" href="/" aria-label="tsudev-contact - Trang chủ">
+          <img src="/brand/logo-mark.png" alt="" width="34" height="42">
+          <span>tsudev-contact</span>
+        </a>
+        <nav aria-label="Chính">
+          <ul class="menu">
+            {menu.map((m) => (
+              <li><a href={m.href} aria-current={dangO(m.href) ? 'page' : undefined}>{m.ten}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <div class="giao-dien" id="giao-dien" hidden>
+          <button type="button" class="giao-dien__nut" aria-label="Đổi giao diện" aria-haspopup="menu" aria-expanded="false" aria-controls="giao-dien-menu">
+            <svg class="giao-dien__mat-troi" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+            <svg class="giao-dien__mat-trang" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+          </button>
+          <ul class="giao-dien__menu" id="giao-dien-menu" role="menu" aria-label="Giao diện" hidden>
+            {cheDo.map((c) => (
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-chon-giao-dien={c.ma}>{c.ten}</button></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main id="noi-dung">
+      <slot />
+    </main>
+    <footer class="chan-trang">
+      <div class="khung chan-trang__trong">
+        <div class="chan-trang__cot">
+          <a class="thuong-hieu thuong-hieu--nho" href="https://tsudev.com" target="_blank" rel="noopener noreferrer">
+            <img src="/brand/logo-mark.png" alt="" width="24" height="29">
+            <span>tsudev</span>
+          </a>
+          <p>(c) {nam} tsudev. tsudev-contact là một sản phẩm của hệ sinh thái
+            <a href="https://tsudev.com" target="_blank" rel="noopener noreferrer">tsudev.com</a>.
+            Ứng dụng chạy ngoại tuyến, không thu thập dữ liệu.</p>
+        </div>
+        <ul class="chan-trang__lien-ket">
+          <li><a href="https://tsudev.com/terms" target="_blank" rel="noopener noreferrer">Điều khoản sử dụng</a></li>
+          <li><a href="https://tsudev.com/privacy" target="_blank" rel="noopener noreferrer">Chính sách riêng tư</a></li>
+          <li><a href="https://tsudev.com/projects" target="_blank" rel="noopener noreferrer">Sản phẩm khác</a></li>
+        </ul>
+        <ul class="chan-trang__lien-ket">
+          <li><a href="/nhat-ky/">Nhật ký thay đổi</a></li>
+          <li><a href="/ban-quyen/">Bản quyền</a></li>
+          <li><a href={REPO_URL} target="_blank" rel="noopener noreferrer">Mã nguồn</a></li>
+          <li><a href={`${REPO_URL}/issues`} target="_blank" rel="noopener noreferrer">Báo lỗi, góp ý</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

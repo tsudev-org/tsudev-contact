@@ -1,0 +1,17 @@
+// contact.tsudev.com: Cloudflare Workers Static Assets (gói miễn phí), chỉ phục vụ tệp tĩnh trong dist/ - không có mã
+// Worker nào chạy. Chọn Workers thay vì Pages vì Custom Domain của Workers tự tạo bản ghi DNS + chứng chỉ trong zone
+// tsudev.com cùng tài khoản (Pages cần thêm CNAME bằng tay, phiên `wrangler login` không có quyền ghi DNS).
+// public/_headers vẫn áp dụng như trên Pages. Cùng khung với files.tsudev.com, trafficmonitor.tsudev.com.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tsudev-contact",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "contact.tsudev.com", "custom_domain": true }]
+}

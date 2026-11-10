@@ -1,0 +1,13 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+import { renderMd } from '../lib/noi-dung';
+const benThuBa = renderMd('THIRD-PARTY-NOTICES.md', { boTieuDeDau: true, haCap: 1 });
+---
+<TaiLieu tieuDe="Bản quyền" moTa="Bản quyền của tsudev-contact và danh sách thành phần bên thứ ba đi kèm ứng dụng: Qt for Python, font Inter, bộ icon Lucide cùng giấy phép." duongDan="/ban-quyen/" nguon="THIRD-PARTY-NOTICES.md">
+  <h1>Bản quyền</h1>
+  <p>tsudev-contact là sản phẩm của <a href="https://tsudev.com" target="_blank" rel="noopener noreferrer">tsudev</a>. Mã nguồn công khai trên GitHub để mọi người kiểm chứng cách ứng dụng xử lý dữ liệu.</p>
+
+  <h2 id="thanh-phan-ben-thu-ba">Thành phần bên thứ ba</h2>
+  <p>Mỗi thành phần giữ giấy phép riêng của nó. Danh sách dưới đây lấy nguyên văn từ <code>THIRD-PARTY-NOTICES.md</code>.</p>
+  <Fragment set:html={benThuBa.html} />
+</TaiLieu>
