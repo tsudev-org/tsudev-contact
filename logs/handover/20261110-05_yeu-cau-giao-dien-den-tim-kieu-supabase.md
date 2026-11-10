@@ -127,3 +127,5 @@ chiều từng tệp, không chép mù).
 - **Kiểm**: pytest 86/86 (thêm test mặc định Tối/`warm`, test tương phản AA cả hai chế độ), ruff sạch,
   `check-standards.sh` đạt, `check-dist` 0, `check-theme` 0 (Chromium + CSP production), `check-a11y` 9 trang x 2
   chế độ 0 lỗi; xem ảnh chụp 1440/390px cả hai chế độ: không tràn ngang, footer đúng.
+- Nút phụ dùng viền `border-control` (#6E6E6E/#71717A, đạt 3:1 - hàng "viền ô nhập/nút" của bảng §2), không dùng
+  `border-strong` như mẫu tsudev-files (#2E2E2E trên #0A0A0A dưới 3:1, trượt WCAG 1.4.11).

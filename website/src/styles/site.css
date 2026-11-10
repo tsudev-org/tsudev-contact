@@ -74,8 +74,9 @@ pre {
 .nut--chinh { background: var(--primary); border-color: var(--primary-hover); color: var(--on-primary); }
 .nut--chinh:hover { background: var(--primary-hover); color: var(--on-primary); }
 .nut--chinh:active { background: var(--primary-active); }
-.nut--phu { background: var(--bg-surface); border-color: var(--border-strong); color: var(--text-primary); }
-.nut--phu:hover { background: var(--bg-hover); border-color: var(--border-control); color: var(--text-primary); }
+/* Viền nút phụ là ranh giới vùng tương tác: border-control (>= 3:1, WCAG 1.4.11), không phải border-strong */
+.nut--phu { background: var(--bg-surface); border-color: var(--border-control); color: var(--text-primary); }
+.nut--phu:hover { background: var(--bg-hover); border-color: var(--text-muted); color: var(--text-primary); }
 
 /* Trang chủ: hero canh giữa */
 .mo-dau { padding: 5rem 0 3rem; text-align: center; }
