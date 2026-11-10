@@ -1,7 +1,7 @@
 # Lint Python - chạy trong CI (ruff check .). Tên hàm/biến camelCase là quy ước của repo nên tắt N802/N803/N806.
 line-length = 120
 target-version = "py311"
-extend-exclude = [".standards", "build", "dist", "release"]
+extend-exclude = [".standards", "build", "dist", "release", "website"]
 
 [lint]
 select = ["E", "F", "W", "B", "S", "UP", "I", "SIM"]
