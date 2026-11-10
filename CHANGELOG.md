@@ -5,6 +5,12 @@ Quy ước đặt tên bản phát hành: `.standards/docs/VERSIONING.md` mục 
 
 ## Chưa phát hành
 
+- (trống)
+
+## 26.11.1001 - 10/11/2026
+
+Bản làm lại toàn diện: giao diện PySide6, vá lỗ hổng chèn vCard, website `contact.tsudev.com`.
+
 - **Website `contact.tsudev.com`** (`website/`): trang chủ, hướng dẫn, chuẩn bị CSV, tải về (SHA-256 + chứng thực nguồn gốc), bảo mật, kiến trúc, nhật ký, bản quyền; Astro tĩnh, CSP chặt, WCAG 2.2 AA ở cả ba chế độ màu.
 - **CI**: workflow `CI` mỗi PR (ruff, pytest Linux + Windows, pip-audit, gitleaks ghim checksum); phát hành ghim action theo SHA, cài theo hash, kèm SBOM và **chứng thực nguồn gốc bản build** (`gh attestation verify`); Dependabot hằng tháng.
 - **Giao diện mới bằng PySide6 (Qt 6)**: 3 bước trên một màn hình, kéo-thả tệp, tự ghép cột kèm giá trị mẫu, tự kiểm tra dữ liệu, bảng xem trước lọc/tìm không dấu/phân trang chuẩn `DATA_TABLE.md` (QU-STD-TABLE), chủ đề Theo hệ thống/Sáng/Ấm/Tối, font Inter, hộp thoại Giới thiệu nối về tsudev.com. Bỏ màn hình hiệu ứng khởi động.
