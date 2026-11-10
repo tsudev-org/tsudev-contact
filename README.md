@@ -79,8 +79,10 @@ Tên file lấy từ `RELEASE_BASENAME` trong `src/app_info.py` - mỗi bản m�
 2. Ghi thay đổi vào `CHANGELOG.md`, commit.
 3. `git tag v<APP_VERSION> && git push origin v<APP_VERSION>`.
 
-Workflow `.github/workflows/build-release-win.yml` sẽ chạy trên `windows-latest`: đối chiếu tag với
-`APP_VERSION`, chạy test, gọi `scripts/build-win.ps1`, tính SHA256 và đính `.exe` vào Release của tag đó.
+Workflow `.github/workflows/build-release-win.yml` sẽ chạy trên `windows-latest`: cài phụ thuộc theo hash,
+chạy test, đối chiếu tag với `APP_VERSION`, gọi `scripts/build-win.ps1`, ký **chứng thực nguồn gốc bản build**
+và đính `.exe` + SBOM (`.cdx.json`) + `SHA256SUMS.txt` vào Release của tag đó. Người tải kiểm chứng:
+`gh attestation verify <file>.exe --repo tsudev-org/tsudev-contact`.
 Chỉ chạy khi có tag (không chạy mỗi lần push) - giữ thói quen tiết kiệm phút Actions.
 
 > Repo để **public** nên Actions chạy miễn phí không giới hạn. Nếu vì lý do nào đó Actions không
