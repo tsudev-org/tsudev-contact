@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-# Tên file xuất ra theo docs/DESIGN_SYSTEM.md mục 6 - lấy từ src/app_info.py (nguồn duy nhất).
+# Tên file xuất ra theo .standards/docs/VERSIONING.md mục 2 - lấy từ src/app_info.py (nguồn duy nhất).
 import sys
 
 sys.path.insert(0, SPECPATH)
@@ -10,9 +10,9 @@ a = Analysis(
     pathex=['.'],  # để bundle nhìn thấy package src/
     binaries=[],
     datas=[
-        ('icon.png', '.'),
-        # tokens/ là nguồn chân lý giao diện - src/services/tokens.py đọc lúc chạy
-        ('tokens/design-tokens.json', 'tokens'),
+        ('assets/icons/app-256.png', 'assets/icons'),
+        # Token của bộ quy ước là nguồn chân lý giao diện - src/services/tokens.py đọc lúc chạy
+        ('.standards/tokens/design-tokens.json', '.standards/tokens'),
     ],
     hiddenimports=[],
     hookspath=[],
@@ -44,5 +44,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icon.ico'],
+    icon=['assets/icons/app.ico'],
 )

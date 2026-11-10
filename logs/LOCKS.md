@@ -2,4 +2,4 @@
 # Định dạng: <đường dẫn> | <agent/nhiệm vụ> | <HH:mm DD/MM/YYYY>
 # Sửa xong file → XÓA dòng khóa của mình.
 
-(trống - không file nào đang khóa)
+src/** tests/** scripts/** assets/** tools/** README.md Contacts.spec docs/** tokens/** | agent-contact / nâng cấp toàn diện (PR 1-4) | 13:20 10/11/2026

@@ -1,10 +1,14 @@
 # CHANGELOG - tsudev-contact
 
 Mỗi bản phát hành 1 dòng, định dạng: `{version} - {DD/MM/YYYY} - nội dung thay đổi`.
-Quy ước đặt tên bản phát hành: `docs/DESIGN_SYSTEM.md` mục 6.
+Quy ước đặt tên bản phát hành: `.standards/docs/VERSIONING.md` mục 2.
 
 ## Chưa phát hành
 
+- Bỏ liên kết Facebook; liên kết hỗ trợ trỏ về trang sản phẩm `https://contact.tsudev.com`. Nhà phát hành ghi `tsudev`.
+- Icon ứng dụng sinh từ dấu hiệu thu gọn tsudev (`tools/gen_icons.py`, `.ico` nhiều lớp 16 tới 256); bỏ `icon.ico`, `icon.png`, `lock.png` cũ.
+- Giao diện đọc token thẳng từ `.standards/tokens/` (QU-STD-1); xóa `tokens/` và bản sao quy ước cũ trong `docs/` (QU-STD-2).
+- README theo nhận diện tsudev, ghi hạng sản phẩm C.
 - Cửa sổ xem trước hiển thị **nhãn vCard** (Tên, SĐT, Email...) thay cho tên cột CSV, thêm cột `Dòng CSV` và dòng chú thích cột CSV nguồn (`src/features/preview/columns.py`, 6 test).
 - Tự động hóa kiểm thử GUI: `tests/test_gui_smoke.py` + `scripts/test-gui-win.ps1` chạy đúng kịch bản `docs/ARCHITECTURE.md` mục 8 (5 test); máy không có màn hình thì tự bỏ qua. Workflow phát hành chạy luôn phần này trên `windows-latest`.
 - Sửa lỗi tiềm ẩn: thread chuyển đổi gọi `root.after` trực tiếp (tkinter không an toàn đa luồng) → chuyển sang hàng đợi do main thread rút, hủy lượt hẹn khi đóng cửa sổ.
