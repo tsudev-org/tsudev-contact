@@ -1,26 +1,24 @@
 # STATE.md - Trạng thái project (agent đọc đầu phiên, cập nhật cuối phiên)
 
 ## Hàng đợi task (làm từ trên xuống)
-- [ ] (trống - chủ project giao task mới)
+- [ ] **Chủ project merge 4 PR xếp chồng theo thứ tự** #9 -> #10 -> #11 -> #12 (Squash). Agent không được tự merge.
+- [ ] Phát hành bản mới: `APP_VERSION` theo `{YY}.{M}.{DD}{NN}` (ví dụ `26.11.1101`), chuyển mục "Chưa phát hành" của CHANGELOG thành mục phiên bản, tag `v<APP_VERSION>` -> Actions build + SBOM + attestation.
+- [ ] Sau khi có bản mới: `cd website && npm ci && npm run deploy` (wrangler đã đăng nhập tài khoản tsudev), rồi `gh repo edit tsudev-org/tsudev-contact --homepage https://contact.tsudev.com`; báo phiếu `tsudev/logs/handover/20261109-06_*` là contact đã xong.
+- [ ] Bật ruleset bảo vệ `main` theo `GIT_WORKFLOW.md` mục 2 (hiện "Branch not protected"); status check bắt buộc: `Lint + test (Linux)`, `Test (Windows)`, `Quét lộ bí mật (gitleaks)`, `Kiểm quy ước`.
+- [ ] **QU-STD-AUTH** chờ `tsudev-standards` sửa bảng mục 1 (TS-15): repo này là **hạng C** (đã ghi README, chủ project ủy quyền 10/11/2026).
+- [ ] Chủ project chọn giấy phép mã nguồn (repo public nhưng chưa có `LICENSE` = mặc định giữ mọi quyền).
 
-### Gợi ý việc tiếp theo (chưa phải task, cần chủ project duyệt)
-- Phát hành bản `26.8.2003` gói các thay đổi đang ở mục "Chưa phát hành" của `CHANGELOG.md`: sửa `APP_VERSION` → đẩy tag `v26.8.2003` → Actions tự build và đính `.exe` vào Release.
-- Xóa chứng thư thử nghiệm còn sót trong kho tin cậy của Windows (xem mục "Việc dang dở").
-- Kiểm thử GUI chưa phủ: bố cục có vỡ không, hiệu ứng trượt/mờ, `.exe` chạy trên máy sạch - vẫn phải nhìn mắt khi đổi giao diện lớn.
-- Muốn hết cảnh báo SmartScreen phải mua chứng thư OV/EV (không có phương án miễn phí tương đương).
-
-- [ ] **QU-STD-1** Di trú `tokens/` sang `.standards/tokens/` (nguồn chân lý duy nhất). Hiện có **4 file mã nguồn** đọc token cục bộ. Đây là thay đổi PHÁ VỠ: `text-muted` đổi giá trị ở cả ba chế độ và có thêm `border-control`. Làm theo CHANGELOG mục 2.0.0 "Hướng dẫn nâng cấp", chạy lại ảnh chụp giao diện.
-- [ ] **QU-STD-2** Xóa bản sao quy ước cũ nay đã trùng `.standards/`: docs/DESIGN_SYSTEM.md docs/PROJECT_STRUCTURE.md docs/templates/HANDOVER.md - giữ lại chỉ tạo hai nguồn chân lý.
-- [ ] **QU-STD-AUTH** Rà luồng đăng nhập theo `.standards/docs/AUTH_AND_ACCOUNT.md` mục 17. **CHẶN, cần chủ project quyết trước khi làm**: tài liệu mục 1 xếp `tsudev-contact` là **hạng A - web có tài khoản**, nhưng repo này là app desktop Tkinter đóng gói `.exe` bằng PyInstaller, chạy ngoại tuyến, không có tài khoản nào. Theo mô tả trong bảng thì nó là **hạng C**. Làm theo hạng A nghĩa là dựng cả luồng OIDC cho một công cụ chuyển CSV sang vCard. Xem TS-15 ở `tsudev-standards`.
-- [ ] **QU-STD-TABLE** Thêm bộ chọn số bản ghi `10/20/50/100/200` (mặc định `10`, góc dưới bên trái) cho cửa sổ xem trước danh bạ. Chuẩn: `.standards/docs/DATA_TABLE.md` mục 12.
-- [ ] **QU-STD-BRAND** Bổ sung tài sản nhận diện còn thiếu và siêu dữ liệu nối về `tsudev.com`. Chuẩn: `.standards/docs/BRAND_ASSETS.md` mục 14 và `.standards/docs/ECOSYSTEM_IDENTITY.md` mục 9.
-- [ ] **QU-STD-3** Rà chỗ dùng `border-strong` cho viền nút phụ hoặc ô nhập, đổi sang `border-control` (`.standards/docs/DESIGN_SYSTEM.md` mục 1).
+### Gợi ý (chưa phải task)
+- Xóa chứng thư thử nghiệm tự ký còn sót trong kho tin cậy của Windows (phiếu 20260820-03).
+- Muốn hết cảnh báo SmartScreen phải mua chứng thư OV/EV.
+- Trình cài đặt (shortcut Start Menu, gỡ cài đặt) nếu người dùng cần.
 
 ## Đang thực hiện
 | Task | Agent | Bắt đầu |
 |---|---|---|
 
 ## Đã hoàn thành (mới nhất trên cùng)
+- 10/11/2026 - Nâng cấp toàn diện (4 PR xếp chồng, CI xanh): PR #9 bỏ Facebook, nhận diện tsudev, QU-STD-1/2/BRAND (icon), README hạng C; PR #10 PySide6 + lõi `src/engine` (vá chèn vCard, PII chỉ trong RAM, trần đầu vào, chuẩn hóa SĐT VN), i18n vi/en, QU-STD-TABLE, 84 test, khóa hash, SBOM; PR #11 CI (ruff, pytest Linux+Windows, pip-audit, gitleaks), attestation, Dependabot; PR #12 website contact.tsudev.com (chưa deploy - chờ bản phát hành mới)
 - 20/08/2026 - T14: repo chuyển **public**; Actions hết bị chặn, chạy trọn pipeline xanh (run `32291387041`); sửa 2 lỗi workflow (cache pip thiếu requirements.txt, đối chiếu tag khi chạy tay)
 - 20/08/2026 - T13 `8470ceb`: `scripts/sign-win.ps1` ký Authenticode + dấu thời gian miễn phí, `build-win.ps1` thêm `-Sign` và tự ghi `release/SHA256SUMS.txt`
 - 20/08/2026 - T12 `f528c3a`: `tests/test_gui_smoke.py` + `scripts/test-gui-win.ps1` tự động hóa kịch bản GUI (5 test, chạy thật trên Windows và trên runner CI); phát hiện & sửa lỗi gọi `root.after` từ thread nền
@@ -38,6 +36,11 @@
 - 19/08/2026 - Khởi tạo bộ quy ước v1.0.0
 
 ## Quyết định quan trọng
+- 10/11/2026 - **Giao diện PySide6-Essentials** thay tkinter (exe ~26 MB); lõi `src/engine` thuần Python. Tên `engine` vì `.gitignore` chuẩn chặn đường dẫn `core`.
+- 10/11/2026 - **Ngoại tuyến 100%**: không tự kiểm tra cập nhật, QtNetwork bị loại khỏi bản đóng gói. Hạng sản phẩm C.
+- 10/11/2026 - **Danh bạ chỉ trong RAM**; settings ở `%LOCALAPPDATA%\tsudev-contact`; khởi động xóa `contacts_data.db` bản cũ để lại trong %TEMP%.
+- 10/11/2026 - Website `contact.tsudev.com` = tên miền con 1 cấp, cùng khung Astro + Cloudflare Workers với files.tsudev.com, nằm trong `website/` của repo này.
+- 10/11/2026 - Phụ thuộc: sửa `requirements*.in` rồi `scripts/lock-deps.sh` (uv `--universal --generate-hashes`); mọi nơi cài bằng `--require-hashes`.
 - 20/08/2026 - **Repo đã chuyển PUBLIC** theo yêu cầu chủ project. Hệ quả đã kiểm chứng: GitHub Actions chạy lại bình thường (hết lỗi chặn thanh toán), phút Actions miễn phí không giới hạn, trang Releases ai cũng tải được. Toàn bộ project không dùng dịch vụ trả phí nào.
 - 20/08/2026 - **Ký số**: chỉ dùng công cụ miễn phí có sẵn của Windows (`Set-AuthenticodeSignature` + timestamp RFC3161). Chứng thư tự ký KHÔNG gỡ được SmartScreen trên máy khác - chấp nhận, thay bằng đối chiếu `SHA256SUMS.txt`. Không mua chứng thư OV/EV.
 - 20/08/2026 - Workflow **không bật `cache: pip`**: repo không có `requirements.txt` (phụ thuộc khai báo trong `scripts/build-win.ps1`); thêm file chỉ để cache là trùng lặp không đáng, repo public nên không cần tiết kiệm phút.
