@@ -46,3 +46,8 @@
 - Gói lõi tên `engine`, không đặt `core` (`.gitignore` chuẩn chặn). Không sửa `.standards/`.
 - Phiếu đã gửi sang repo khác: `tsudev/logs/handover/20261110-04_bao-ket-qua-contact-tsudev-com.md` (chưa commit
   ở repo đó - phiên của repo `tsudev` xử lý).
+
+## Kết quả xử lý
+
+- 11/11/2026 (phiên projects-0c): việc 2 (QU-STD-AUTH) XONG nhờ v3.4.0 (TS-15). Phiếu `20261110-05` (giao diện
+  đen + tím) xong, PR #19. Việc 1 (giấy phép mã nguồn) vẫn CHỜ chủ dự án chọn giấy phép.

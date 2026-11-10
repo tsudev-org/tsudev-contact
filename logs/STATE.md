@@ -2,7 +2,7 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 - [ ] Chủ project chọn giấy phép mã nguồn (repo public nhưng chưa có `LICENSE` = mặc định giữ mọi quyền).
-- [ ] **QU-STD-AUTH** chờ `tsudev-standards` xử lý TS-15 (bảng mục 1 ghi sai hạng); repo này là **hạng C** (đã ghi README).
+- [x] **QU-STD-AUTH** XONG 11/11/2026: bộ quy ước v3.4.0 (TS-15) xếp repo này hạng C; hạng C không bắt buộc đăng nhập, app chạy trọn ngoại tuyến không tài khoản (`.standards/docs/AUTH_AND_ACCOUNT.md` mục 1).
 
 ### Gợi ý (chưa phải task)
 - Xóa chứng thư thử nghiệm tự ký còn sót trong kho tin cậy của Windows (phiếu 20260820-03).
