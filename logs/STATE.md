@@ -1,7 +1,6 @@
 # STATE.md - Trạng thái project (agent đọc đầu phiên, cập nhật cuối phiên)
 
 ## Hàng đợi task (làm từ trên xuống)
-- [ ] Chủ project chọn giấy phép mã nguồn (repo public nhưng chưa có `LICENSE` = mặc định giữ mọi quyền).
 - [x] **QU-STD-AUTH** XONG 11/11/2026: bộ quy ước v3.4.0 (TS-15) xếp repo này hạng C; hạng C không bắt buộc đăng nhập, app chạy trọn ngoại tuyến không tài khoản (`.standards/docs/AUTH_AND_ACCOUNT.md` mục 1).
 
 ### Gợi ý (chưa phải task)
@@ -14,6 +13,7 @@
 |---|---|---|
 
 ## Đã hoàn thành (mới nhất trên cùng)
+- 11/11/2026 - Giấy phép **Apache-2.0** (chủ project giao phiên đóng gói chọn phương án tối ưu): đồng bộ swico/lotus, có điều khoản bằng sáng chế, là giấy phép OSI (đủ điều kiện ký Authenticode miễn phí qua SignPath), tương thích PySide6 LGPL-3.0 liên kết động. `LICENSE`, `NOTICE` kèm trong `.exe`.
 - 10/11/2026 - Phiếu `20261110-05` (giao diện đen + tím kiểu Supabase): website + app PySide6 chỉ Sáng/Tối/Hệ thống, mặc định Tối; màu riêng ở `tokens/extensions.tsudev-contact.json`. Chi tiết: mục Kết quả của phiếu.
 - 10/11/2026 - Kết phiên: nhả khóa (commit nhả khóa trước đó bị mất khi tạo lại nhánh website), phiếu bàn giao `20261110-02`.
 - 10/11/2026 - Merge #9, #13 (thay #10 bị GitHub tự đóng khi xóa nhánh base), #11, #12; phát hành **v26.11.1001** (Actions: test, build, SBOM, attestation đều đạt; đã tải về kiểm SHA-256 + `gh attestation verify` + chạy thật trên Windows); deploy **https://contact.tsudev.com** (9 trang 200, header bảo mật đủ, HTTP->HTTPS 301); `homepage` repo đổi sang trang này; bật ruleset "Bảo vệ main" (id 26943513, 4 check bắt buộc); merge Dependabot #14 (setup-python v7.1.0, đã đối chiếu SHA) và #16 (playwright 1.65); gửi phiếu `tsudev/logs/handover/20261110-04_*`.

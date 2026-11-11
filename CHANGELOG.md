@@ -5,6 +5,7 @@ Quy ước đặt tên bản phát hành: `.standards/docs/VERSIONING.md` mục 
 
 ## Chưa phát hành
 
+- **Giấy phép Apache-2.0**: thêm `LICENSE` + `NOTICE` (trước đây repo public nhưng chưa có giấy phép = mặc định giữ mọi quyền); bản `.exe` kèm cả hai tệp; trang `/ban-quyen/` của website nêu rõ quyền của người dùng.
 - **Giao diện đen tuyền + tím của hệ tsudev** (phiếu `logs/handover/20261110-05`): app chỉ còn Sáng / Tối / Hệ thống, mặc định Tối, lựa chọn Ấm cũ tự chuyển thành Sáng; màu ghi đè ở `tokens/extensions.tsudev-contact.json` (bản `.standards/` giữ nguyên), test tương phản WCAG AA cả hai chế độ.
 - Website: bộ chọn Sáng / Tối / Hệ thống ở chân trang cạnh `© tsudev` (radiogroup, phím mũi tên), header kiểu Supabase với nút "Mã nguồn" + "Tải về", nền liền mạch, quầng tím tĩnh; chép từ `files.tsudev.com`.
 
