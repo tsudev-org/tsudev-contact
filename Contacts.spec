@@ -57,6 +57,8 @@ a = Analysis(
         ('assets/fonts/Inter-Bold.ttf', 'assets/fonts'),
         ('assets/fonts/Inter-LICENSE.txt', 'assets/fonts'),
         ('THIRD-PARTY-NOTICES.md', '.'),
+        ('LICENSE', '.'),
+        ('NOTICE', '.'),
         ('.standards/tokens/design-tokens.json', '.standards/tokens'),
         ('tokens/extensions.tsudev-contact.json', 'tokens'),
     ],
