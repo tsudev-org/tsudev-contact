@@ -114,6 +114,13 @@ Cách xác thực miễn phí đang dùng: mỗi Release kèm `SHA256SUMS.txt`, 
 File danh bạ thật (`*.csv`, `*.vcf`, `*.db`) chứa **thông tin cá nhân** và đã được
 `.gitignore` chặn - không commit chúng vào repo trong mọi trường hợp.
 
+## Giấy phép
+
+Mã nguồn phát hành theo **[Apache License 2.0](LICENSE)** - xem thêm [`NOTICE`](NOTICE). Được dùng, sửa,
+phân phối lại (kể cả thương mại) khi giữ thông báo bản quyền và ghi rõ thay đổi; giấy phép **không** cho phép
+dùng tên "tsudev" để gọi bản phái sinh. Thành phần bên thứ ba đi kèm bản `.exe` giữ giấy phép riêng:
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
+
 ## Tài liệu
 
 | File | Nội dung |
