@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "name": "tsudev-contact",
+  "winget": "tsudev.Contact",
+  "homepage": "https://contact.tsudev.com",
+  "license": "Apache-2.0",
+  "description": {
+    "vi": "Chuyển danh bạ CSV sang vCard (.vcf) để nạp vào điện thoại, chạy ngoại tuyến hoàn toàn",
+    "en": "Convert CSV contact lists to vCard (.vcf) for phones, fully offline"
+  },
+  "release": {
+    "repo": "tsudev-org/tsudev-contact",
+    "tagRegex": "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
+    "sums": "SHA256SUMS.txt"
+  },
+  "assets": {
+    "windows-x64": {
+      "file": "tsudev-contact_{version}_x64-setup.exe",
+      "kind": "portable",
+      "bin": "tsudev-contact_{version}_x64-setup.exe"
+    }
+  },
+  "channels": [],
+  "planned": [
+    "winget"
+  ]
+}
