@@ -20,7 +20,7 @@
       "bin": "tsudev-contact_{version}_x64-setup.exe"
     }
   },
-  "channels": [],
+  "channels": ["scoop"],
   "planned": [
     "winget"
   ]
