@@ -1,4 +1,4 @@
-<img src="assets/brand/logo-mark.png" alt="tsudev" height="56">
+<img src="website/public/brand/logo-contact.png" alt="Logo tsudev-contact" height="96">
 
 # tsudev-contact
 

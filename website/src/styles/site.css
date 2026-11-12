@@ -57,9 +57,10 @@ pre {
 .dau-trang__nut { display: flex; gap: 0.5rem; margin-left: auto; }
 .thuong-hieu { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--text-primary); text-decoration: none; font-weight: 600; font-size: 1.05rem; }
 .thuong-hieu:hover { color: var(--text-primary); }
-.thuong-hieu img { width: auto; height: 2.2rem; }
+.thuong-hieu picture { display: inline-flex; }
+.thuong-hieu img { width: 2.25rem; height: 2.25rem; object-fit: contain; }
 .thuong-hieu--nho { font-size: 1rem; }
-.thuong-hieu--nho img { height: 1.6rem; }
+.thuong-hieu--nho img { width: 1.75rem; height: 1.75rem; }
 .menu { display: flex; gap: 0.15rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
 .menu a { display: block; padding: 0.4rem 0.7rem; border-radius: 6px; color: var(--text-secondary); text-decoration: none; font-size: 0.94rem; font-weight: 500; }
 .menu a:hover, .menu a[aria-current="page"] { color: var(--text-primary); }

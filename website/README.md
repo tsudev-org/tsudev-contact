@@ -11,7 +11,7 @@ chạy; tên miền con `contact.tsudev.com`, cấu hình ở `wrangler.jsonc`).
 * Bản phát hành (phiên bản, liên kết, SHA-256) lấy từ GitHub Releases lúc build.
 * Ảnh chụp `public/anh/ung-dung-*.png` render từ chính ứng dụng (`QWidget.grab()`, dữ liệu giả của
   `tests/fixtures/make_samples.py`), không chụp màn hình thật.
-* Tài sản thương hiệu (`favicon*`, `android-chrome-*`, `og-image.png`, `brand/`) sinh bằng `scripts/brand_assets.py`
+* Tài sản thương hiệu (`favicon*`, `android-chrome-*`, `og-image.png`, `brand/`) sinh bằng `scripts/brand-assets.mjs` từ MỘT ảnh gốc `assets/brand/source/` (cấu hình `assets/brand/brand.json`); không sửa tay - đổi logo: thay ảnh gốc rồi `node website/scripts/brand-assets.mjs`, CI chạy `--check`.
   từ dây chuyền thương hiệu của repo `tsudev-org/tsudev`; không sửa tay.
 * Header bảo mật (HSTS, CSP `default-src 'none'`, `X-Frame-Options: DENY`...) ở `public/_headers`; `security.txt` ở
   `public/.well-known/`. `scripts/check-dist.mjs` chạy sau mỗi lần build.
