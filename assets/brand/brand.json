@@ -1,0 +1,16 @@
+{
+  "_ghi_chu": "Cấu hình dây chuyền thương hiệu (website/scripts/brand-assets.mjs). Đổi logo: thay ảnh ở source/, sửa tệp này nếu cần, chạy `node website/scripts/brand-assets.mjs`. CI chạy với --check.",
+  "id": "contact",
+  "name": "tsudev-contact",
+  "source": "source/logo-contact.png",
+  "mode": "tile",
+  "tileRadius": 0.22,
+  "solidBg": "#1F313F",
+  "ogGlow": "#163a3f",
+  "ogAccent": "#5eead4",
+  "domain": "contact.tsudev.com",
+  "ogLines": [
+    "Chuyển danh bạ CSV sang vCard (.vcf)",
+    "để nạp vào điện thoại"
+  ]
+}

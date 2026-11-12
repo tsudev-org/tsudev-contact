@@ -47,3 +47,9 @@ xuất tại repo `tsudev-standards` theo `.standards/docs/SYNC.md` mục 1.
 
 Xem hàng đợi trong `logs/STATE.md`.
 
+- **Lệch chuẩn có chủ ý (13/11/2026) - logo sản phẩm riêng**: favicon / icon ứng dụng dùng logo `contact` do chủ dự án
+  giao, KHÁC `BRAND_ASSETS.md` mục 2 (đòi dấu hiệu cú dùng chung). Gỡ dòng này khi đề xuất
+  `tsudev-standards` `logs/handover/20261112-01_de-xuat-logo-rieng-tung-san-pham.md` được nhận vào bộ quy ước.
+  Nguồn duy nhất `assets/brand/source/logo-contact.png`, cấu hình `assets/brand/brand.json`, sinh bằng
+  `node website/scripts/brand-assets.mjs` (CI chạy `--check`).
+
